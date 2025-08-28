@@ -8,15 +8,15 @@ public class Circle
 	public static final double PI =  3.141592654;
 	
 	private int diameter;
-	private int xpos;
-	private int ypos;
+	private int col;
+	private int row;
 	private String color;
 	private boolean visible;
 	
-	public Circle (int xpos, int ypos, int dia, String color)
+	public Circle (int col, int row, int dia, String color)
 	{
-		this.xpos     = xpos;
-		this.ypos     = ypos;
+		this.col      = col;
+		this.row      = row;
 		this.color    = color;
 		this.visible  = false;
 		this.diameter = dia;
@@ -40,7 +40,7 @@ public class Circle
 	{
 		if (this.visible == false) { return; }
 		Canvas canvas = Canvas.getCanvas();
-		canvas.draw(this, color, new Ellipse2D.Double(this.xpos, this.ypos, this.diameter, this.diameter));
+		canvas.draw(this, color, new Ellipse2D.Double(this.col, this.row, this.diameter, this.diameter));
 		canvas.wait(10);
 	}
 	

@@ -91,6 +91,10 @@ public class Canvas
 		else if (color.equals("green"))   { graphic.setColor(Color.green);   }
 		else if (color.equals("magenta")) { graphic.setColor(Color.magenta); }
 		else if (color.equals("white"))   { graphic.setColor(Color.white);   }
+		else if (color.equals("pink"))    { graphic.setColor(Color.pink);   }
+		else if (color.equals("cyan"))    { graphic.setColor(Color.cyan);   }
+		else if (color.equals("gray"))    { graphic.setColor(Color.gray);   }
+		else if (color.equals("orange"))  { graphic.setColor(Color.orange);   }
 		else                              { graphic.setColor(Color.black);   }
 	}
 	
