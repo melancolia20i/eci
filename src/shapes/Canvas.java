@@ -14,7 +14,7 @@ public class Canvas
 	 * para todo el programa
 	 * */
 	private static Canvas host;	
-	public  static int winsize = 120;
+	public  static int winsize;
 	
 	public static Canvas getCanvas ()
 	{
