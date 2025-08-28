@@ -1,18 +1,40 @@
 package marble;
 
 import shapes.*;
+import javax.swing.*;
 
 public class Main
 {
+	private static int N;
+	private static int M;
+	
+	private static void getGameSettings ()
+	{
+		/* Dado que todo el proyecto es con ventanas tambien deberiamos
+		 * pedir los datos con ventanas... Codigo generado por chatGPT,
+		 * modificado por nostros
+		 * */
+		String n_ = JOptionPane.showInputDialog("N:");
+		String m_ = JOptionPane.showInputDialog("M:");
+		
+		N = Integer.parseInt(n_);
+		M = Integer.parseInt(m_);
+		
+		/* El primer proble que surgue es saber si los valores tienen sentido,
+		 * es decir, no puede haber M fichas si M >= N, pero como hay M fichas
+		 * plus M espacios para cada ficha la condicion deberia ser
+		 * 2M <= N*N
+		 * M <= N*N/2
+		 * */
+		if (M > (int) (N * N / 2))
+		{
+			JOptionPane.showMessageDialog(null, "Espacio minimo invalido", "Error", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
+		}	
+	}
+	
 	public static void main(String[] args)
 	{
-		Circle  c1 = new Circle(0, 0, 10, "blue");
-		c1.makeVisible(true);
-
-		Circle  c2 = new Circle(10, 10, 10, "green");
-		c2.makeVisible(true);
-		
-		Rectangle r1 = new Rectangle(40, 40, 40, 40, "yellow");
-		r1.makeVisible(true);
+		getGameSettings();
 	}
 }
