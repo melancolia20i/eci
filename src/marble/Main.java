@@ -78,45 +78,40 @@ public class Main
 	{	
 		board = new Cell[N][N];
 
-		/* Inicializamos el tablero de NxN fichas, al inicio
-		 * todas las celdas son celdas normales
+		/* lo primero que queremos hacer es el tablero basico, sin ningun tipo
+		 * de color ni nada, solo una representacion
 		 * */
 		for (int row = 0; row < N; row++)
 		{
 			for (int col = 0; col < N; col++)
-			{	
+			{
 				board[row][col] = new Cell(row, col);
 			}
-		}
+		}	
 		
 		Random rand = new Random();
-
-		/* Ahora lo que queremos es randomizar el tablero, queremos
-		 * hacer esto M veces
+		/* ahora queremos marcar algunas celdas como no permisivas (aun no hemos
+		 * incluido las canicas, solo celdas)
 		 * */
 		for (int m = 0; m < M; m++)
 		{
 			int rrow = rand.nextInt(N);
 			int rcol = rand.nextInt(N);
 			
-			if (board[rrow][rcol].amIPermissive() == true)
-			{
-				m--;
-				continue;
-			}
-			board[rrow][rcol].setAsPermissive(colorstrings[m]);
+			if (board[rrow][rcol].ampermissive() == false) { m--; continue; }
+			board[rrow][rcol].turnopermissive(colorstrings[m]);
 		}
 		
 		for (int row = 0; row < N; row++)
 		{
 			for (int col = 0; col < N; col++)
-			{	
-				System.out.print(board[row][col].amIPermissive() + " ");
+			{
+				System.out.print(board[row][col].ampermissive() + "\t\t");
 			}
 			System.out.println();
-		}
+		}	
 	}
-	
+
 	public static void main(String[] args)
 	{
 		getGameSettings();

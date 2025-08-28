@@ -2,41 +2,27 @@ package marble;
 
 public class Cell
 {
-	/* Hay dos tipos de celdas, las que pueden usarse como
-	 * suelo normal y cualquier tipo de canica puede pasar
-	 * por ahi (permissive = true) y luego esta las que solo
-	 * permiten un color (permissive = false).
-	 * 
-	 * si permissive == true, el atributo color no debera
-	 * usarse
-	 * 
-	 * si una celda es permisiva y la canica correspondiente
-	 * llega a la celda, entonces esta celda dejara de ser
-	 * permisiva para convertirse en una celda normal
-	 * */
+	private int xpos, ypos;
 	private boolean permissive;
-	private String   color;	
-	private int      xpos, ypos;
+	private String onlyAccepts;
 	
-	public Cell (int ypos, int xpos)
+	public Cell (int xpos, int ypos)
 	{
-		this.ypos = ypos;
 		this.xpos = xpos;
+		this.ypos = ypos;
+		this.permissive  = true;
+		this.onlyAccepts = null;
 	}
 	
-	public void setAsPermissive (String color)
-	{
-		this.permissive = true;
-		this.color = color;
+	public void turnopermissive (String oaccepts)
+	{	
+		this.permissive = false;
+		this.onlyAccepts = oaccepts;
 	}
 	
-	public boolean amIPermissive ()
-	{
-		return this.permissive;
-	}
+	public int getx () { return this.xpos; }
+	public int gety () { return this.ypos; }
 	
-	public String permissiveKind ()
-	{
-		return this.color;
-	}
+	public boolean ampermissive () { return this.permissive; }
+	public String onlyaccept () { return this.onlyAccepts; }
 }
