@@ -99,7 +99,7 @@ public class Main
 			int rcol = rand.nextInt(N);
 			
 			if (board[rrow][rcol].ampermissive() == false) { m--; continue; }
-			board[rrow][rcol].turnopermissive(colorstrings[m]);
+			board[rrow][rcol].turnopermissive(colorstrings[m], mxwidth);
 		}
 		
 		for (int row = 0; row < N; row++)
