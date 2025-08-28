@@ -14,7 +14,7 @@ public class Canvas
 	 * para todo el programa
 	 * */
 	private static Canvas host;	
-	public  static int winsize;
+	public  static int winsize = 120;
 	
 	public static Canvas getCanvas ()
 	{
@@ -22,6 +22,7 @@ public class Canvas
 		{
 			host = new Canvas("marble game", Canvas.winsize, Canvas.winsize, Color.white);
 		}
+		host.setVisible(true);
 		return host;
 	}
 	
