@@ -1,30 +1,33 @@
 package shapes;
 
 import java.awt.*;
-import java.awt.geom.*;
 
-public class Circle
+public class Rectangle
 {
-	public static final double PI =  3.141592654;
+	public static int EDGES = 4;
 	
-	private int diameter;
 	private int xpos;
 	private int ypos;
+	
+	private int height;
+	private int width;
+	
 	private String color;
 	private boolean visible;
 	
-	public Circle (int xpos, int ypos, int dia, String color)
-	{
-		this.xpos     = xpos;
-		this.ypos     = ypos;
-		this.color    = color;
-		this.visible  = false;
-		this.diameter = dia;
+	public Rectangle (int xpos, int ypos, int height, int width, String color)
+	{	
+		this.xpos    = xpos;
+		this.ypos    = ypos;
+		this.height  = height;
+		this.width   =  width;
+		this.color   = color;
+		this.visible = false;
 	}
 	
 	public void makeVisible (boolean show)
 	{
-		if (show)
+		if (show == true)
 		{
 			this.visible = true;
 			this.draw();
@@ -33,14 +36,14 @@ public class Circle
 		{
 			this.erase();
 			this.visible = false;
-		}	
+		}
 	}
-
+	
 	private void draw ()
 	{
 		if (this.visible == false) { return; }
 		Canvas canvas = Canvas.getCanvas();
-		canvas.draw(this, color, new Ellipse2D.Double(this.xpos, this.ypos, this.diameter, this.diameter));
+		canvas.draw(this, color, new java.awt.Rectangle(this.xpos, this.ypos, this.width, this.height));
 		canvas.wait(10);
 	}
 	
@@ -49,5 +52,5 @@ public class Circle
 		if (this.visible == false) { return; }
 		Canvas canvas = Canvas.getCanvas();
 		canvas.erase(this);
-	}	
+	}
 }
