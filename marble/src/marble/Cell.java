@@ -65,4 +65,14 @@ public class Cell
 	public String onlyAccept () { return this.onlyAccepts; }
 	
 	public boolean amBeingPressed () { return this.beingPressed; }
+	
+	public Rectangle getFloor ()
+	{
+		return this.floor;
+	}
+	
+	public void set_as_permissive ()
+	{
+		this.permissive = true;
+	}
 }

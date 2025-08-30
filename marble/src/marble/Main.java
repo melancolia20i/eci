@@ -24,6 +24,7 @@ public class Main extends JFrame
 	private static int M;
 	
 	private static Cell[][] board;
+	private static int noSolved = 0;
 	
 	final private static String[] colorstrings =
 	{
@@ -154,7 +155,14 @@ public class Main extends JFrame
 		{		
 			Circle canica = canicas.get(i);				
 			
+			if (canica.alreadySolved() == true)
+			{
+				continue;
+			}
+			
 			int x = canica.get_table_col(), y = canica.get_table_row();
+			int old_x = x, old_y = y;
+			
 			if (dp == 'y') { y += dm; }
 			else { x += dm; }
 			
@@ -165,6 +173,17 @@ public class Main extends JFrame
 			{
 				continue;
 			}
+
+			Cell celda = board[y][x];	
+			
+			/* si la celda contiene una canica actualmente, entonces no
+			 * se puede colocar una mas ahi
+			 * */
+			if (celda.amBeingPressed() == true)
+			{
+				System.out.println("hola");
+				continue;
+			}
 				
 			/* actualizamos la posicion dentro del tablero y la posicion de la canica
 			 * en la pantalla del juego
@@ -172,8 +191,8 @@ public class Main extends JFrame
 			canica.set_table_col(x);
 			canica.set_table_row(y);
 			canica.update_position(y * mxwidth, x * mxwidth);	
-
-			Cell celda = board[y][x];	
+			
+			celda.setFeelingPressed(true);
 			if (celda.amPermissive() == false)
 			{
 				String canicaColor = canica.getColor();
@@ -181,14 +200,25 @@ public class Main extends JFrame
 				{
 					JOptionPane.showMessageDialog(null, "Has hecho un mal movimiento", "Has perdido :(", JOptionPane.ERROR_MESSAGE);
 					System.exit(0);
-				}	
+				}
 				
+				/* eliminamos esta canica de la lista y del visual del juego
+				 * */
+				canica.i_am_already_paired();
+				noSolved++;
+				
+				celda.getFloor().makeVisible(false);
+				celda.set_as_permissive();
+				celda.setFeelingPressed(false);
 			}
+			
+			board[old_y][old_x].setFeelingPressed(false);
 		}
 		
-		if (canicas.size() == 0)
+		if (noSolved == M)
 		{
-			// TODO: congratulations goes here
+			JOptionPane.showMessageDialog(null, "Has resuleto este tablero!", "Felicidades", JOptionPane.INFORMATION_MESSAGE);
+			System.exit(0);
 		}
 	}
 	

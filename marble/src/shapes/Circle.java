@@ -78,4 +78,15 @@ public class Circle
 
 	public void set_table_row (int val) { this.t_row = val; }
 	public void set_table_col (int val) { this.t_col = val; }
+	
+	public void i_am_already_paired ()
+	{
+		erase();
+		this.visible = false;
+	}
+	
+	public boolean alreadySolved ()
+	{
+		return this.visible == false;
+	}
 }
