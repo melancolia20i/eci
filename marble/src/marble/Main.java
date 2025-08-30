@@ -51,19 +51,7 @@ public class Main extends JFrame
 		
 		N = Integer.parseInt(n_);
 		M = Integer.parseInt(m_);
-		
-		/* El primer proble que surgue es saber si los valores tienen sentido,
-		 * es decir, no puede haber M fichas si M >= N, pero como hay M fichas
-		 * plus M espacios para cada ficha la condicion deberia ser
-		 * 2M <= N*N
-		 * M <= N*N/2
-		 * */
-		if ((M > (int) (N * N / 2)) || (M >= N))
-		{
-			JOptionPane.showMessageDialog(null, "Espacio minimo invalido", "Error", JOptionPane.ERROR_MESSAGE);
-			System.exit(0);
-		}	
-		
+
 		/* Hay 11 colores, de esos 11 no usaremos ni el blanco ni el negro
 		 * para fichas, lo cual nos deja con 9 colores, tambien se debe
 		 * comprobar que no hayan mas colores de los que realmente tenemos
@@ -73,13 +61,23 @@ public class Main extends JFrame
 			JOptionPane.showMessageDialog(null, "Valor invalido para M", "Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
-
 		if (N < 2)
 		{
 			JOptionPane.showMessageDialog(null, "Valor invalido para N", "Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
-
+		
+		/* El primer proble que surgue es saber si los valores tienen sentido,
+		 * es decir, no puede haber M fichas si M >= N, pero como hay M fichas
+		 * plus M espacios para cada ficha la condicion deberia ser
+		 * 2M <= N*N
+		 * M <= N*N/2
+		 * */
+		if (M > Math.floor(N * N / 2))
+		{
+			JOptionPane.showMessageDialog(null, "Espacio minimo invalido", "Error", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
+		}
 		Canvas.winsize = mxwidth * N;
 	}
 	
@@ -125,7 +123,7 @@ public class Main extends JFrame
 			 * asegurarnos de que no haya un slot ahi y ademas que no haya otra
 			 * canica puesta previamente
 			 * */
-			if (cell.amPermissive() == false && cell.amBeingPressed() == false)
+			if (cell.amPermissive() == false || cell.amBeingPressed() == true)
 			{
 				m--;
 				continue;
@@ -137,8 +135,7 @@ public class Main extends JFrame
 			canicas.add(marble);
 			board[rrow][rcol].setFeelingPressed(true);
 		}
-		
-		
+				
 		/* XXX: borrar este bucle cuando ya no sea necesario
 		 * */
 		for (int row = 0; row < N; row++)

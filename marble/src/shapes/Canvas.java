@@ -45,6 +45,7 @@ public class Canvas extends JFrame
 		
 		frame.setContentPane(canvas);
 		frame.setTitle(title);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		canvas.setPreferredSize(new Dimension(width, height));
 		bgColor = bg;
@@ -70,8 +71,6 @@ public class Canvas extends JFrame
 			{
 			}
 		});
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	public void setVisible (boolean visible)
