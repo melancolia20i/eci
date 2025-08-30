@@ -8,7 +8,11 @@ import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Main
+import javax.swing.JFrame;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+public class Main extends JFrame
 {
 	/* Esta variable hace referencia a el tamano que se requiere
 	 * para dibujar un cuadrado, tambien equivale al diametro de
@@ -54,7 +58,7 @@ public class Main
 		 * 2M <= N*N
 		 * M <= N*N/2
 		 * */
-		if (M > (int) (N * N / 2))
+		if ((M > (int) (N * N / 2)) || (M >= N))
 		{
 			JOptionPane.showMessageDialog(null, "Espacio minimo invalido", "Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
@@ -69,7 +73,7 @@ public class Main
 			JOptionPane.showMessageDialog(null, "Valor invalido para M", "Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
-		
+
 		if (N < 2)
 		{
 			JOptionPane.showMessageDialog(null, "Valor invalido para N", "Error", JOptionPane.ERROR_MESSAGE);
@@ -134,6 +138,9 @@ public class Main
 			board[rrow][rcol].setFeelingPressed(true);
 		}
 		
+		
+		/* XXX: borrar este bucle cuando ya no sea necesario
+		 * */
 		for (int row = 0; row < N; row++)
 		{
 			for (int col = 0; col < N; col++)
@@ -143,45 +150,10 @@ public class Main
 			System.out.println();
 		}	
 	}
-
+	
 	public static void main(String[] args)
 	{
 		getGameSettings();
 		createBoardBackEnd();
-	}
+	}	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

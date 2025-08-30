@@ -7,7 +7,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-public class Canvas
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+
+public class Canvas extends JFrame
 {
 	/* Esta es una instancia de la misma clase la cual sera utilizada
 	 * para tener una forma de acceder al unico canva que sera creado
@@ -23,7 +26,7 @@ public class Canvas
 			host = new Canvas("marble game", Canvas.winsize, Canvas.winsize, Color.white);
 		}
 		host.setVisible(true);
-		return host;
+		return host;	
 	}
 	
 	private JFrame       frame;
@@ -48,7 +51,27 @@ public class Canvas
 		
 		frame.pack();
 		objs   = new ArrayList<Object>();
-		shapes = new HashMap<Object, ShapeDescription>();
+		shapes = new HashMap<Object, ShapeDescription>();	
+		
+		frame.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped (KeyEvent e)
+			{
+				System.out.println(e.getKeyChar());
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e)
+			{
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e)
+			{
+			}
+		});
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	public void setVisible (boolean visible)

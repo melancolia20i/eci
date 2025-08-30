@@ -1,0 +1,12 @@
+
+	ok * definir el tamano del tablero (N)
+	ok * definir el numero de canicas (M)
+	ok * asegurarse que hay espacio suficiente NxN para M
+	ok * crear el tablero tal que hayan NxN espacios (gaps)
+	ok * crear los slots para cada M (aleatorio)
+	ok * crear las posiciones para cada M (aleatorio)
+
+	* detectar cuando una tecla es presionada
+	* calcular y posicionar las fichas dependiendo la tecla presionada
+	* actualizar el estado de la celda si un M llego a su hole
+	* decir en cuantos movimientos resolvio el juego
