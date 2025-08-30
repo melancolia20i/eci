@@ -129,13 +129,13 @@ public class Main extends JFrame
 				continue;
 			}
 			
-			Circle marble = new Circle(rcol * mxwidth, rrow * mxwidth, mxwidth, colorstrings[m]);
+			Circle marble = new Circle(rcol * mxwidth, rrow * mxwidth, mxwidth, colorstrings[m], rrow, rcol);
 			marble.makeVisible(true);
 			
 			canicas.add(marble);
 			board[rrow][rcol].setFeelingPressed(true);
 		}
-				
+
 		/* XXX: borrar este bucle cuando ya no sea necesario
 		 * */
 		for (int row = 0; row < N; row++)
@@ -147,7 +147,57 @@ public class Main extends JFrame
 			System.out.println();
 		}	
 	}
+
+	private static void handleMotion (int dm, char dp)
+	{
+		for (int i = 0; i < canicas.size(); i++)
+		{		
+			Circle canica = canicas.get(i);				
+			
+			int x = canica.get_table_col(), y = canica.get_table_row();
+			if (dp == 'y') { y += dm; }
+			else { x += dm; }
+			
+			if (x == -1 || x == N || y == -1 || y == N)
+			{
+				continue;
+			}
+			
+			canica.set_table_col(x);
+			canica.set_table_row(y);
+
+			canica.update_position(y * mxwidth, x * mxwidth);	
+			System.out.println("new: " + y + " " + x);
+		}
+		
+		if (canicas.size() == 0)
+		{
+			// TODO: congratulations goes here
+		}
+	}
 	
+	public static void getKeyPressed (char key)
+	{
+		if (key != 'w' && key != 'd' && key != 's' && key != 'a')
+		{
+			return;
+		}
+		
+		/* dm: diferencial de movimiento -1 o 1
+		 * dp: diferencial de posicion x o y
+		 * */
+		int dm = 0;
+		char dp = 0;
+
+		if (key == 'w' || key == 's') { dp = 'y'; }
+		else if (key == 'a' || key == 'd') { dp = 'x'; }
+		
+		if (key == 's' || key == 'd')      { dm = 1; }
+		else if (key == 'w' || key == 'a') { dm = -1; }	
+		
+		handleMotion(dm, dp);	
+	}
+		
 	public static void main(String[] args)
 	{
 		getGameSettings();

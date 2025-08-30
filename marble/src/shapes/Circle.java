@@ -13,13 +13,21 @@ public class Circle
 	private String color;
 	private boolean visible;
 	
-	public Circle (int col, int row, int dia, String color)
+	/* Estas variables hacen alusion a la posicion dentro
+	 * de la tabla de referencia
+	 * */
+	private int t_row;
+	private int t_col;
+	
+	public Circle (int col, int row, int dia, String color, int t_row, int t_col)
 	{
 		this.col      = col;
 		this.row      = row;
 		this.color    = color;
 		this.visible  = false;
 		this.diameter = dia;
+		this.t_row    = t_row;
+		this.t_col    = t_col;
 	}
 	
 	public void makeVisible (boolean show)
@@ -49,5 +57,20 @@ public class Circle
 		if (this.visible == false) { return; }
 		Canvas canvas = Canvas.getCanvas();
 		canvas.erase(this);
-	}	
+	}
+	
+	
+	public int get_table_row () { return this.t_row; }
+	public int get_table_col () { return this.t_col; }
+	
+	public void update_position (int row, int col)
+	{
+		erase();
+		this.col = col;
+		this.row = row;
+		draw();
+	}
+
+	public void set_table_row (int val) { this.t_row = val; }
+	public void set_table_col (int val) { this.t_col = val; }
 }

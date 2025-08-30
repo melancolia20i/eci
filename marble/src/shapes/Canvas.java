@@ -1,6 +1,9 @@
 package shapes;
 
 import javax.swing.*;
+
+import marble.Main;
+
 import java.awt.*;
 import java.util.List;
 import java.util.HashMap;
@@ -58,7 +61,7 @@ public class Canvas extends JFrame
 			@Override
 			public void keyTyped (KeyEvent e)
 			{
-				System.out.println(e.getKeyChar());
+				Main.getKeyPressed(e.getKeyChar());
 			}
 
 			@Override
