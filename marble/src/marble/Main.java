@@ -158,16 +158,32 @@ public class Main extends JFrame
 			if (dp == 'y') { y += dm; }
 			else { x += dm; }
 			
+			/* si alguna de estas condiciones pasa significa que estamos al borde
+			 * del tablero lo cual nos deberis impedir movernos
+			 * */
 			if (x == -1 || x == N || y == -1 || y == N)
 			{
 				continue;
 			}
-			
+				
+			/* actualizamos la posicion dentro del tablero y la posicion de la canica
+			 * en la pantalla del juego
+			 * */
 			canica.set_table_col(x);
 			canica.set_table_row(y);
-
 			canica.update_position(y * mxwidth, x * mxwidth);	
-			System.out.println("new: " + y + " " + x);
+
+			Cell celda = board[y][x];	
+			if (celda.amPermissive() == false)
+			{
+				String canicaColor = canica.getColor();
+				if (canicaColor != celda.onlyAccept())
+				{
+					JOptionPane.showMessageDialog(null, "Has hecho un mal movimiento", "Has perdido :(", JOptionPane.ERROR_MESSAGE);
+					System.exit(0);
+				}	
+				
+			}
 		}
 		
 		if (canicas.size() == 0)

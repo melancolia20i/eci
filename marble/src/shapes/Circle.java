@@ -70,6 +70,11 @@ public class Circle
 		this.row = row;
 		draw();
 	}
+	
+	public String getColor ()
+	{
+		return this.color;
+	}
 
 	public void set_table_row (int val) { this.t_row = val; }
 	public void set_table_col (int val) { this.t_col = val; }
