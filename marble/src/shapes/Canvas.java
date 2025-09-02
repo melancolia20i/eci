@@ -27,7 +27,7 @@ public class Canvas extends JFrame
 		if (host == null)
 		{
 			host = new Canvas("marble game", Canvas.winsize, Canvas.winsize, Color.white);
-		}
+		}	
 		host.setVisible(true);
 		return host;	
 	}

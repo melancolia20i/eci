@@ -224,7 +224,7 @@ public class Main extends JFrame
 	
 	public static void getKeyPressed (char key)
 	{
-		if (key != 'w' && key != 'd' && key != 's' && key != 'a')
+		if (key != 'w' && key != 'e' && key != 's' && key != 'n')
 		{
 			return;
 		}
@@ -235,11 +235,11 @@ public class Main extends JFrame
 		int dm = 0;
 		char dp = 0;
 
-		if (key == 'w' || key == 's') { dp = 'y'; }
-		else if (key == 'a' || key == 'd') { dp = 'x'; }
+		if (key == 's' || key == 'n') { dp = 'y'; }
+		else if (key == 'w' || key == 'e') { dp = 'x'; }
 		
-		if (key == 's' || key == 'd')      { dm = 1; }
-		else if (key == 'w' || key == 'a') { dm = -1; }	
+		if (key == 'w' || key == 'n')      { dm = 1; }
+		else if (key == 'e' || key == 's') { dm = -1; }	
 		
 		handleMotion(dm, dp);	
 	}
