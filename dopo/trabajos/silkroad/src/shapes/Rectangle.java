@@ -15,7 +15,7 @@ public class Rectangle
 	private ColorType color;
 	private boolean visible;
 	
-	public Rectangle (int col, int row, int height, int width, ColorType color)
+	public Rectangle (int row, int col, int height, int width, ColorType color)
 	{	
 		this.col     = col;
 		this.row     = row;

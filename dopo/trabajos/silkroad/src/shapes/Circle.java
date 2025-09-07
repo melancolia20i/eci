@@ -19,7 +19,7 @@ public class Circle
 	private int t_row;
 	private int t_col;
 	
-	public Circle (int col, int row, int dia, ColorType color, int t_row, int t_col)
+	public Circle (int row, int col, int dia, ColorType color, int t_row, int t_col)
 	{
 		this.col      = col;
 		this.row      = row;
