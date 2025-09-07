@@ -12,7 +12,9 @@ public enum ColorType
 	PURPLE  (new Color(177, 98, 134)),
 	AQUA    (new Color(104, 157, 106)),
 	ORANGE  (new Color(214, 93, 14)),
-	GROUND  (new Color(194, 178, 128));
+	
+	SAND  (new Color(227, 212, 168)),
+	ROAD   (new Color(139, 125, 107));
 	
 	private Color color;
 	

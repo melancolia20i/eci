@@ -20,13 +20,13 @@ public class Canvas extends JFrame
 	 * para todo el programa
 	 * */
 	private static Canvas host;	
-	public  static int winsize;
+	private final static int winsize = 500;
 	
 	public static Canvas getCanvas ()
 	{
 		if (host == null)
 		{
-			host = new Canvas("silkroad game", Canvas.winsize, Canvas.winsize, Color.white);
+			host = new Canvas("silkroad game", Canvas.winsize, Canvas.winsize, ColorType.SAND.getColor());
 		}	
 		host.setVisible(true);
 		return host;	
@@ -46,14 +46,13 @@ public class Canvas extends JFrame
 		frame  = new JFrame();
 		canvas = new CanvasPane();
 		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setContentPane(canvas);
 		frame.setTitle(title);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		canvas.setPreferredSize(new Dimension(width, height));
 		bgColor = bg;
 		
-		frame.pack();
 		objs   = new ArrayList<Object>();
 		shapes = new HashMap<Object, ShapeDescription>();	
 		
@@ -74,6 +73,7 @@ public class Canvas extends JFrame
 			{
 			}
 		});	
+		frame.pack();
 	}
 	
 	public void setVisible (boolean visible)
