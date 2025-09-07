@@ -3,6 +3,7 @@ package silkroad;
 import shapes.*;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
 class Store
 {
@@ -27,11 +28,42 @@ class Store
 		{ColorType.C17_F, ColorType.C17_T},
 	};	
 	
+	/* positiones exactas de donde se deben colocar las casas
+	 * dependiendo su posicion en el mapa
+	 * {fachada_row, fachada_col, techo_row, techo_col}
+	 * 
+	 * valores calculados en: 9c642e5 git
+	 * */
+	private static int [][]locations =
+	{
+		{75, 0, 50, 12},
+		{175, 0, 150, 12},
+		{275, 0, 250, 12},
+		{375, 0, 350, 12},
+		{475, 0, 450, 12},
+		{475, 125, 450, 137},
+		{475, 225, 450, 237},
+		{475, 325, 450, 337},
+		{475, 475, 450, 487},
+		{375, 475, 350, 487},
+		{275, 475, 250, 487},
+		{175, 475, 150, 487},
+		{75, 475, 50, 487},
+		{25, 325, 0, 337},
+		{25, 225, 0, 237},
+		{150, 200, 125, 212},
+		{250, 200, 225, 212},
+	};
+	
 	/* tanto como la fachada (rectangulo) y el techo (triangulo)
 	 * compartiran el tamano de 25 unidades
 	 * */
 	private int dimensions = 25;
 	
+	/* tenges: numbero de tenges que esta tienda tiene y por el cual se reabastece
+	 * available: true si ningun robot ha venido, false si ya pasaron por aca
+	 * location: position en el mapa [0, 17)
+	 * */
 	private int tenges;
 	private boolean available;
 	private int location;
@@ -48,56 +80,12 @@ class Store
 	}	
 	
 	private void putInTheMap ()
-	{	
-		ColorType cf = styles[this.location][0];
-		ColorType ct = styles[this.location][1];	
-		
-		int frow = 0, fcol = 0, trow = 0, tcol = 0;
-		int startRow = Silkroad.chunksXY[location][0], startCol = Silkroad.chunksXY[location][1];
-
-		if (this.location <= 4)
-		{	
-			frow = startRow + dimensions * 3;
-			fcol = 0;
+	{
+		int frow = locations[this.location][0], fcol = locations[this.location][1];
+		int trow = locations[this.location][2], tcol = locations[this.location][3];
 			
-			trow = startRow + dimensions * 2;
-			tcol = dimensions / 2;
-		}
-		else if (this.location <= 7)
-		{
-			frow = startRow + dimensions * 3;
-			fcol = startCol + dimensions;
-
-			trow = startRow + dimensions * 2;
-			tcol = fcol + (dimensions / 2);
-		}
-		else if (this.location <= 12)
-		{	
-			frow = startRow + dimensions * 3;
-			fcol = startCol + dimensions * 3;
-			
-			trow = frow - dimensions;
-			tcol = fcol + (dimensions / 2);
-		}
-		else if (this.location <= 14)
-		{
-			frow = startRow + dimensions;
-			fcol = startCol + dimensions;
-			
-			trow = startRow;
-			tcol = fcol + (dimensions / 2);
-		}
-		else if (this.location <= 16)
-		{
-			frow = startRow + dimensions * 2;
-			fcol = startCol;
-			
-			trow = startRow + dimensions;
-			tcol = startCol + (dimensions / 2);
-		}
-		
-		fachada = new Rectangle(frow, fcol, dimensions, dimensions, cf);	
-		techo = new Triangle(trow,tcol, dimensions, dimensions, ct);
+		fachada = new Rectangle(frow, fcol, dimensions, dimensions, styles[this.location][0]);
+		techo = new Triangle(trow, tcol, dimensions, dimensions, styles[this.location][1]);
 		
 		fachada.makeVisible(true);
 		techo.makeVisible(true);
@@ -118,6 +106,64 @@ class Store
 
 class Robot
 {	
+	private ColorType styles[] =
+	{
+		ColorType.R1,
+		ColorType.R2,
+		ColorType.R3,
+		ColorType.R4,
+		ColorType.R5,
+		ColorType.R6,
+		ColorType.R7,
+		ColorType.R8,
+		ColorType.R9,
+		ColorType.R10,
+		ColorType.R11,
+		ColorType.R12,
+		ColorType.R13,
+		ColorType.R14,
+		ColorType.R15,
+		ColorType.R16,
+		ColorType.R17,
+	};
+	
+	private int [][]locations =
+	{
+		{50, 50},
+		{150, 50},
+		{250, 50},
+		{350, 50},
+		{450, 50},
+		{450, 150},
+		{450, 250},
+		{450, 350},
+		{450, 450},
+		{350, 450},
+		{250, 450},
+		{150, 450},
+		{50, 450},
+		{50, 350},
+		{50, 250},
+		{150, 250},
+		{250, 250}
+	};
+
+	private final int dimensions = 25;
+	private int position;	
+	
+	public Robot (int position)
+	{
+		this.position = position;
+		this.putInTheMap();
+	}
+	
+	private void putInTheMap ()
+	{
+		int row = locations[this.position][0], col = locations[this.position][1];
+		
+		Circle body = new Circle(row, col, this.dimensions, styles[this.position]);
+		body.makeVisible(true);
+	}
 }
 
 public class Silkroad
@@ -158,13 +204,12 @@ public class Silkroad
 		{100, 200},
 		{200, 200},
 	};
-	
 
 	private int profit;
 	private int roadLength;
 	
-	private int noStores = 0;
-	private Store []gapsAvailableForStores = new Store[maxRoadLength];
+	private Store []stores = new Store[maxRoadLength];
+	private Robot []robots = new Robot[maxRoadLength];
 	
 	private static final String title = "SilkRoad";
 	
@@ -180,33 +225,53 @@ public class Silkroad
 		
 		for (int i = 0; i < maxRoadLength; i++)
 		{
-			this.gapsAvailableForStores[i] = null;
+			this.stores[i] = null;
+			this.robots[i] = null;
+			
+			new Store(i, i);
+			new Robot(i);
 		}
 	}
 
 	public void placeStore (int location, int tenges)
 	{
-		if (this.gapsAvailableForStores[location] != null)
+		if (this.stores[location] != null)
 		{
 			JOptionPane.showMessageDialog(null, "cannot place a store at that location, there's one already", title, JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
 		Store store = new Store(tenges, location);	
-		this.gapsAvailableForStores[location] = store;		
-		this.noStores++;
+		this.stores[location] = store;		
 	}
 	
 	public void removeStore (int location)
 	{
-		if (this.gapsAvailableForStores[location] == null)
+		if (this.stores[location] == null)
 		{
 			JOptionPane.showMessageDialog(null, "cannot delete a store at that location, there's nothing there", title, JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
-		this.gapsAvailableForStores[location].killMe();
-		this.gapsAvailableForStores[location] = null;
+		this.stores[location].killMe();
+		this.stores[location] = null;
+	}
+	
+	public void placeRobot (int location)
+	{
+		if (this.robots[location] != null)
+		{
+			JOptionPane.showMessageDialog(null, "cannot place a robot at that location, there's one already", title, JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		Robot robot = new Robot(location);
+		this.robots[location] = robot;
+	}
+	
+	public void removeRobot (int location)
+	{
+		
 	}
 	
 	public void moveRobot (int location, int meters)
@@ -217,7 +282,7 @@ public class Silkroad
 	{
 		for (int i = 0; i < this.roadLength; i++)
 		{
-			this.gapsAvailableForStores[i].reSupply();
+			this.stores[i].reSupply();
 		}
 	}
 	

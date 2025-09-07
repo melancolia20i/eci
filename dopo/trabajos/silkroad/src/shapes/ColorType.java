@@ -39,7 +39,25 @@ public enum ColorType
 	C16_F (new Color(170, 160, 120)),
 	C16_T (new Color(70, 60, 40)),
 	C17_F (new Color(160, 120, 90)),
-	C17_T (new Color(60, 40, 30));
+	C17_T (new Color(60, 40, 30)),
+	
+	R1 (new Color(228, 214, 170)),
+	R2 (new Color(193, 154, 107)),
+	R3 (new Color(245, 220, 200)),
+	R4 (new Color(200, 200, 200)),
+	R5 (new Color(160, 120, 90)),
+	R6 (new Color(130, 65, 45)),
+	R7 (new Color(230, 200, 70)),
+	R8 (new Color(214, 93, 14)),
+	R9 (new Color(255, 140, 0)),
+	R10 (new Color(34, 139, 34)),
+	R11 (new Color(60, 179, 113)),
+	R12 (new Color(72, 160, 200)),
+	R13 (new Color(100, 149, 237)),
+	R14 (new Color(200, 210, 230)),
+	R15 (new Color(184, 115, 51)),
+	R16 (new Color(210, 105, 30)),
+	R17 (new Color(100, 100, 100));
 	
 	private Color color;
 	

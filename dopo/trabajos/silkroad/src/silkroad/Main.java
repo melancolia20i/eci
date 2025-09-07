@@ -29,6 +29,10 @@ public class Main
 		{
 			case 's': placeStore(); break;
 			case 'd': deleteStore(); break;
+			case 'r': placeRobot(); break;
+			case 'e': break;
+			case 'm': break;
+			case 'R': silk.resupplyStores(); break;
 		}
 	}
 	
@@ -83,5 +87,18 @@ public class Main
 			return;
 		}
 		silk.removeStore(location - 1);
+	}
+	
+	private static void placeRobot ()
+	{
+		final String title = "olacing a new robot";
+		int location = Integer.parseInt(JOptionPane.showInputDialog(null, locationBoundsMsg, title, JOptionPane.INFORMATION_MESSAGE));		
+
+		if (location > length || location == 0)
+		{
+			JOptionPane.showMessageDialog(null, "please provide an actual location", title, JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		silk.placeRobot(location - 1);
 	}
 }
