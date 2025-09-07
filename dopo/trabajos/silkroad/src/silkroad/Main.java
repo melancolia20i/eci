@@ -1,58 +1,71 @@
 package silkroad;
 
-import shapes.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class Main
 {
-	/* Este es el numero maximo que se puede ingresar para crear
-	 * una carretera. Es 17 dado que la ventana es 500x500 y cada
-	 * road chunk es de 100x100
-	 * */
-	private static final int maxRoadLength = 17;
-	private static final int roadChunkSize = 100;
-	
-	/* Esta matriz establece donde se deben colocar las placas del Road
-	 * dentro de la ventana
-	 * */
-	private static final int [][]placeChunkAt =
-	{
-		{0,     0},
-		{100,   0},
-		{200,   0},
-		{300,   0},
-		{400,   0},
-
-		{400, 100},
-		{400, 200},
-		{400, 300},
-		{400, 400},
-
-		{300, 400},
-		{200, 400},
-		{100, 400},
-		{0  , 400},
-
-		{0,   300},
-		{0,   200},
-		{100, 200},
-		{200, 200},
-	};
-	
-	private static int roadLength;
+	private static Silkroad silk;
+	private static int length;
 	
 	public static void main (String []args)
 	{
-		roadLength = 17;
-		for (int i = 0; i < roadLength; i++)
-		{
-			int row = placeChunkAt[i][0], col = placeChunkAt[i][1];
-			new Rectangle(row, col, roadChunkSize, roadChunkSize, ColorType.ROAD).makeVisible(true);;
+		length = 17;
+		
+		if (length > Silkroad.maxRoadLength)
+		{	
 		}
+		displayControls();
+		silk = new Silkroad(17);
 	}
 	
 	public static void getKeyPressed (char key)
 	{
-		
+		switch (key)
+		{
+			case 's': placeStore(); break;
+		}
 	}
 	
+	private static void displayControls ()
+	{
+		System.out.println("silkroad - controls");
+		System.out.println("  s: place a new store");
+		System.out.println("  d: delete a store");
+		System.out.println("  r: place a new robot");
+		System.out.println("  e: erase a robot");
+		System.out.println("  m: move a robot");
+		System.out.println("  R: resupply stores");
+		System.out.println("  b: return robots");
+		System.out.println("  x: reboot");
+		System.out.println("  p: profit");
+		System.out.println("  L: list stores");
+		System.out.println("  l: list robots");
+		System.out.println("  V: make visible");
+		System.out.println("  I: make invisible");
+		System.out.println("  f: finish");
+		System.out.println("  o: ok");
+	}
+	
+	private static void placeStore ()
+	{
+		final String bounds = "location [1, " + length + "]";
+		final String title = "placing a new store";
+
+		int location = Integer.parseInt(JOptionPane.showInputDialog(null, bounds, title, JOptionPane.INFORMATION_MESSAGE));
+		int tenges   = Integer.parseInt(JOptionPane.showInputDialog(null, "tenges [0, ]", title, JOptionPane.INFORMATION_MESSAGE));
+
+		if (location > length || location == 0)
+		{
+			JOptionPane.showMessageDialog(null, "please provide an actual location", title, JOptionPane.ERROR_MESSAGE);
+			return;
+		}	
+		if (tenges <= 0)
+		{
+			JOptionPane.showMessageDialog(null, "please provide an actual amount of money", title, JOptionPane.ERROR_MESSAGE);
+			return;
+		}	
+		silk.placeStore(location - 1, tenges);
+	}
 }
