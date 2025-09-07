@@ -1,23 +1,26 @@
 package silkroad;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 public class Main
 {
 	private static Silkroad silk;
 	private static int length;
 	
+	private static String locationBoundsMsg;
+	
 	public static void main (String []args)
 	{
+		// TODO: change this
 		length = 17;
 		
 		if (length > Silkroad.maxRoadLength)
 		{	
 		}
+
 		displayControls();
-		silk = new Silkroad(17);
+		locationBoundsMsg = "location [1, " + length + "]";
+		silk = new Silkroad(length);
 	}
 	
 	public static void getKeyPressed (char key)
@@ -25,6 +28,7 @@ public class Main
 		switch (key)
 		{
 			case 's': placeStore(); break;
+			case 'd': deleteStore(); break;
 		}
 	}
 	
@@ -50,11 +54,10 @@ public class Main
 	
 	private static void placeStore ()
 	{
-		final String bounds = "location [1, " + length + "]";
 		final String title = "placing a new store";
 
-		int location = Integer.parseInt(JOptionPane.showInputDialog(null, bounds, title, JOptionPane.INFORMATION_MESSAGE));
-		int tenges   = Integer.parseInt(JOptionPane.showInputDialog(null, "tenges [0, ]", title, JOptionPane.INFORMATION_MESSAGE));
+		int location = Integer.parseInt(JOptionPane.showInputDialog(null, locationBoundsMsg, title, JOptionPane.INFORMATION_MESSAGE));
+		int tenges   = Integer.parseInt(JOptionPane.showInputDialog(null, "tenges [1, ]", title, JOptionPane.INFORMATION_MESSAGE));
 
 		if (location > length || location == 0)
 		{
@@ -67,5 +70,18 @@ public class Main
 			return;
 		}	
 		silk.placeStore(location - 1, tenges);
+	}
+	
+	private static void deleteStore ()
+	{
+		final String title = "deleting a store";
+		int location = Integer.parseInt(JOptionPane.showInputDialog(null, locationBoundsMsg, title, JOptionPane.INFORMATION_MESSAGE));		
+
+		if (location > length || location == 0)
+		{
+			JOptionPane.showMessageDialog(null, "please provide an actual location", title, JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		silk.removeStore(location - 1);
 	}
 }
