@@ -10,7 +10,7 @@ public class Circle
 	private int diameter;
 	private int col;
 	private int row;
-	private String color;
+	private ColorType color;
 	private boolean visible;
 	
 	/* Estas variables hacen alusion a la posicion dentro
@@ -19,7 +19,7 @@ public class Circle
 	private int t_row;
 	private int t_col;
 	
-	public Circle (int col, int row, int dia, String color, int t_row, int t_col)
+	public Circle (int col, int row, int dia, ColorType color, int t_row, int t_col)
 	{
 		this.col      = col;
 		this.row      = row;
@@ -71,7 +71,7 @@ public class Circle
 		draw();
 	}
 	
-	public String getColor ()
+	public ColorType getColor ()
 	{
 		return this.color;
 	}

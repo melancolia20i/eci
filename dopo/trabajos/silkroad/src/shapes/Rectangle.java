@@ -12,10 +12,10 @@ public class Rectangle
 	private int height;
 	private int width;
 	
-	private String color;
+	private ColorType color;
 	private boolean visible;
 	
-	public Rectangle (int col, int row, int height, int width, String color)
+	public Rectangle (int col, int row, int height, int width, ColorType color)
 	{	
 		this.col     = col;
 		this.row     = row;

@@ -2,7 +2,7 @@ package shapes;
 
 import javax.swing.*;
 
-import marble.Main;
+import silkroad.Main;
 
 import java.awt.*;
 import java.util.List;
@@ -26,7 +26,7 @@ public class Canvas extends JFrame
 	{
 		if (host == null)
 		{
-			host = new Canvas("marble game", Canvas.winsize, Canvas.winsize, Color.white);
+			host = new Canvas("silkroad game", Canvas.winsize, Canvas.winsize, Color.white);
 		}	
 		host.setVisible(true);
 		return host;	
@@ -38,7 +38,7 @@ public class Canvas extends JFrame
 	private Color        bgColor;
 	private Image        canvasImg;
 	private List<Object> objs;
-
+	
 	private HashMap<Object, ShapeDescription> shapes;
 	
 	private Canvas (String title, int width, int height, Color bg)
@@ -73,7 +73,7 @@ public class Canvas extends JFrame
 			public void keyReleased(KeyEvent e)
 			{
 			}
-		});
+		});	
 	}
 	
 	public void setVisible (boolean visible)
@@ -92,7 +92,7 @@ public class Canvas extends JFrame
 		frame.setVisible(true);
 	}
 	
-	public void draw (Object refobj, String color, Shape shape)
+	public void draw (Object refobj, ColorType color, Shape shape)
 	{
 		objs.remove(refobj);
 		objs.add(refobj);
@@ -107,20 +107,9 @@ public class Canvas extends JFrame
 		redraw();
 	}
 	
-	public void setForegroundColor (String color)
+	public void setBkgColor (ColorType color)
 	{
-		      if (color.equals("red"))     { graphic.setColor(Color.red);     }
-		else if (color.equals("black"))   { graphic.setColor(Color.black);   }
-		else if (color.equals("blue"))    { graphic.setColor(Color.blue);    }
-		else if (color.equals("yellow"))  { graphic.setColor(Color.yellow);  }
-		else if (color.equals("green"))   { graphic.setColor(Color.green);   }
-		else if (color.equals("magenta")) { graphic.setColor(Color.magenta); }
-		else if (color.equals("white"))   { graphic.setColor(Color.white);   }
-		else if (color.equals("pink"))    { graphic.setColor(Color.pink);   }
-		else if (color.equals("cyan"))    { graphic.setColor(Color.cyan);   }
-		else if (color.equals("gray"))    { graphic.setColor(Color.gray);   }
-		else if (color.equals("orange"))  { graphic.setColor(Color.orange);   }
-		else                              { graphic.setColor(Color.black);   }
+		graphic.setColor(color.getColor());	
 	}
 	
 	public void wait (int ms)
@@ -138,7 +127,7 @@ public class Canvas extends JFrame
 	private void redraw ()
 	{
 		erase();
-		for (Iterator i = objs.iterator(); i.hasNext(); )
+		for (Iterator<Object> i = objs.iterator(); i.hasNext(); )
 		{
 			shapes.get(i.next()).draw(graphic);
 		}
@@ -167,19 +156,19 @@ public class Canvas extends JFrame
 	private class ShapeDescription
 	{
 		private Shape shape;
-		private String colorStr;
+		private ColorType color;
 		
-		public ShapeDescription (Shape shape, String color)
+		public ShapeDescription (Shape shape, ColorType color)
 		{
 			this.shape = shape;
-			colorStr = color;
+			this.color = color;
 		}
 		
 		public void draw (Graphics2D g2d)
 		{
-			setForegroundColor(colorStr);
-			g2d.draw(shape);
-			g2d.fill(shape);
+			setBkgColor(this.color);
+			g2d.draw(this.shape);
+			g2d.fill(this.shape);
 		}
 	}
 }
