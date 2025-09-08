@@ -26,7 +26,7 @@ public class Canvas extends JFrame
 	{
 		if (host == null)
 		{
-			host = new Canvas("silkroad game", Canvas.winsize, Canvas.winsize + 10, ColorType.SAND.getColor());
+			host = new Canvas("silkroad game", Canvas.winsize, Canvas.winsize, ColorType.SAND.getColor());
 		}	
 		host.setVisible(true);
 		return host;	
@@ -39,38 +39,40 @@ public class Canvas extends JFrame
 	private Image        canvasImg;
 	private List<Object> objs;
 	
+	private static JProgressBar bar;
+	
 	private HashMap<Object, ShapeDescription> shapes;
 	
-	private Canvas (String title, int width, int height, Color bg)
-	{
-		this.frame = new JFrame();
-		this.canvas = new CanvasPane();
-		
-		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.frame.setTitle(title);
-		
-		this.canvas.setPreferredSize(new Dimension(width, height));	
-		this.bgColor = bg;
-		
-		this.objs = new ArrayList<Object>();
-		this.shapes = new HashMap<Object, ShapeDescription>();
-		
-		this.frame.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) { Main.getKeyPressed(e.getKeyChar()); }
-			@Override public void keyReleased(KeyEvent e) {}
+	private Canvas (String title, int width, int height, Color bg) {
+		frame  = new JFrame();
+		canvas = new CanvasPane();
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle(title);
+
+		canvas.setPreferredSize(new Dimension(width, height));
+		bgColor = bg;
+
+		objs   = new ArrayList<Object>();
+		shapes = new HashMap<Object, ShapeDescription>();	
+
+		frame.addKeyListener(new KeyListener() {
+			@Override public void keyTyped (KeyEvent e) { Main.getKeyPressed(e.getKeyChar()); }
 			@Override public void keyPressed(KeyEvent e) {}
+			@Override public void keyReleased(KeyEvent e) {}
 		});
-		
+
 		JPanel root = new JPanel(new BorderLayout());
-		root.add(this.canvas, BorderLayout.CENTER);
-		
-		JProgressBar bar = new JProgressBar(0, 100);
+		root.add(canvas, BorderLayout.CENTER);
+
+		bar = new JProgressBar(0, 100);
 		bar.setValue(0);
+
 		bar.setStringPainted(true);
 		root.add(bar, BorderLayout.SOUTH);
-		
-		this.frame.setContentPane(root);
-		this.pack();
+
+		frame.setContentPane(root);
+		frame.pack();
 	}
 	
 	public void setVisible (boolean visible)
@@ -169,8 +171,8 @@ public class Canvas extends JFrame
 		}
 	}
 	
-	public JFrame getFrame ()
+	public static void updateBar (int by)
 	{
-		return this.frame;
-	}
+		bar.setValue(by);
+	}	
 }

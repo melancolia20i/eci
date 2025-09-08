@@ -77,6 +77,7 @@ class Store
 	{
 		this.tenges = tenges;
 		this.location = location;
+		this.available = true;
 		
 		this.putInTheMap();
 	}	
@@ -341,7 +342,11 @@ public class Silkroad
 		Store store = new Store(tenges, location);	
 
 		this.stores[location] = store;		
+
+		this.updateBar();
 		this.success = true;
+		
+		System.out.println("added: " + this.total);
 	}
 	
 	public void removeStore (int location)
@@ -353,9 +358,15 @@ public class Silkroad
 			return;
 		}
 		
+		this.total -= this.stores[location].getTenges();
+		
 		this.stores[location].killMe();
 		this.stores[location] = null;
+
+		this.updateBar();
 		this.success = true;
+
+		System.out.println("removed: " + this.total);
 	}
 	
 	public void placeRobot (int location)
@@ -416,8 +427,12 @@ public class Silkroad
 		if (this.stores[newloc] != null && this.stores[newloc].getAvailable() == true)
 		{
 			Store store = this.stores[newloc];
+
 			robot.takeMoneyFromStore(store.getTenges());
 			store.noLongerAvailable();
+			
+			this.profit += store.getTenges();
+			this.updateBar();
 		}
 	}
 	
@@ -428,8 +443,11 @@ public class Silkroad
 			if (this.stores[i] != null)
 			{
 				this.stores[i].reSupply();
+				this.total += this.stores[i].getTenges();
 			}
 		}
+		
+		this.updateBar();
 		this.success = true;
 	}
 	
@@ -454,7 +472,10 @@ public class Silkroad
 		this.returnRobots();
 		
 		this.profit = 0;
+		this.total = 0;
 		this.success = true;
+		
+		this.updateBar();
 	}
 	
 	public int profit ()
@@ -559,4 +580,10 @@ public class Silkroad
 		}
 		return this.success;
 	}	
+	
+	private void updateBar ()
+	{
+		int percentage = (int) (((double) this.profit / this.total) * 100);
+		Canvas.updateBar(percentage);
+	}
 }
