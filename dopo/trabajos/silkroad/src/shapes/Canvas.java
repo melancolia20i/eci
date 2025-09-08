@@ -26,7 +26,7 @@ public class Canvas extends JFrame
 	{
 		if (host == null)
 		{
-			host = new Canvas("silkroad game", Canvas.winsize, Canvas.winsize, ColorType.SAND.getColor());
+			host = new Canvas("silkroad game", Canvas.winsize, Canvas.winsize + 10, ColorType.SAND.getColor());
 		}	
 		host.setVisible(true);
 		return host;	
@@ -43,37 +43,34 @@ public class Canvas extends JFrame
 	
 	private Canvas (String title, int width, int height, Color bg)
 	{
-		frame  = new JFrame();
-		canvas = new CanvasPane();
+		this.frame = new JFrame();
+		this.canvas = new CanvasPane();
 		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setContentPane(canvas);
-		frame.setTitle(title);
+		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frame.setTitle(title);
 		
-		canvas.setPreferredSize(new Dimension(width, height));
-		bgColor = bg;
+		this.canvas.setPreferredSize(new Dimension(width, height));	
+		this.bgColor = bg;
 		
-		objs   = new ArrayList<Object>();
-		shapes = new HashMap<Object, ShapeDescription>();	
+		this.objs = new ArrayList<Object>();
+		this.shapes = new HashMap<Object, ShapeDescription>();
 		
-		frame.addKeyListener(new KeyListener() {
-			@Override
-			public void keyTyped (KeyEvent e)
-			{
-				Main.getKeyPressed(e.getKeyChar());
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e)
-			{
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e)
-			{
-			}
-		});	
-		frame.pack();
+		this.frame.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) { Main.getKeyPressed(e.getKeyChar()); }
+			@Override public void keyReleased(KeyEvent e) {}
+			@Override public void keyPressed(KeyEvent e) {}
+		});
+		
+		JPanel root = new JPanel(new BorderLayout());
+		root.add(this.canvas, BorderLayout.CENTER);
+		
+		JProgressBar bar = new JProgressBar(0, 100);
+		bar.setValue(0);
+		bar.setStringPainted(true);
+		root.add(bar, BorderLayout.SOUTH);
+		
+		this.frame.setContentPane(root);
+		this.pack();
 	}
 	
 	public void setVisible (boolean visible)
@@ -170,5 +167,10 @@ public class Canvas extends JFrame
 			g2d.draw(this.shape);
 			g2d.fill(this.shape);
 		}
+	}
+	
+	public JFrame getFrame ()
+	{
+		return this.frame;
 	}
 }

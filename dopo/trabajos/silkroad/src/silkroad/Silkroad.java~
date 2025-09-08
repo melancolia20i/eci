@@ -1,7 +1,7 @@
 package silkroad;
 
 import shapes.*;
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -113,7 +113,7 @@ class Store
 		}
 	}
 
-	public void noLongerAvailable ()
+	private void noLongerAvailable ()
 	{
 		this.available = false;
 	}
@@ -287,7 +287,6 @@ public class Silkroad
 	private static final String title = "SilkRoad";
 
 	private int profit;
-	private int total;
 	private int roadLength;
 	
 	private Store []stores = new Store[maxRoadLength];
@@ -318,8 +317,7 @@ public class Silkroad
 		}
 		
 		this.profit = 0;
-		this.total  = 0;
-		this.success = true;	
+		this.success = true;
 	}
 
 	public void placeStore (int location, int tenges)
@@ -337,9 +335,7 @@ public class Silkroad
 			return;
 		}
 		
-		this.total += tenges;	
 		Store store = new Store(tenges, location);	
-
 		this.stores[location] = store;		
 		this.success = true;
 	}
@@ -416,7 +412,7 @@ public class Silkroad
 		if (this.stores[newloc] != null && this.stores[newloc].getAvailable() == true)
 		{
 			Store store = this.stores[newloc];
-			robot.takeMoneyFromStore(store.getTenges());
+			r.takeMoneyFromStore(store.getTenges());
 			store.noLongerAvailable();
 		}
 	}
