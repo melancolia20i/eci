@@ -11,11 +11,12 @@ public class Main
 	
 	public static void main (String []args)
 	{
-		// TODO: change this
-		length = 17;
+		length = Integer.parseInt(JOptionPane.showInputDialog(null, "road length [1, 17]", "silkroad", JOptionPane.INFORMATION_MESSAGE));
 		
 		if (length > Silkroad.maxRoadLength)
 		{	
+			JOptionPane.showMessageDialog(null, "please provide a value within the bounds", "silkroad - error", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 
 		displayControls();
