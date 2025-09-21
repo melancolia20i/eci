@@ -1,0 +1,16 @@
+def solucion(N):
+    dp = []
+    for i in range(N + 1):
+        dp.append(0)
+
+    for i in range(1, N + 1):
+        temp = i
+        while temp:
+            d = temp % 10
+            dp[i] = min(dp[i], 1 + dp[i - d])
+            temp //= 10
+
+    return dp[N]
+
+N = 17
+print(solucion(N))
