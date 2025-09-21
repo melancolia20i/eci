@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=PageOrientation
+comment0.text=\r\n\ Enumeration\ class\ PageOrientation\ -\ write\ a\ description\ of\ the\ enum\ class\ here\r\n\r\n\ @author\ (your\ name\ here)\r\n\ @version\ (version\ number\ or\ date\ here)\r\n
+comment1.params=from\ until\ change
+comment1.target=PageOrientation(int,\ int,\ int)
+comment2.params=
+comment2.target=int\ getFrom()
+comment3.params=
+comment3.target=int\ getUntil()
+comment4.params=
+comment4.target=int\ getChange()
+comment5.params=location
+comment5.target=int\ getObjLoc(int)
+comment6.params=pageIndex
+comment6.target=PageOrientation\ getOrientationBasedOnPageIndex(int)
+numComments=7

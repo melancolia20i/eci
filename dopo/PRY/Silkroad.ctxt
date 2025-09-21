@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Silkroad
+comment1.params=length
+comment1.target=Silkroad(int)
+comment2.params=to
+comment2.target=void\ changePage(int)
+comment3.params=tenges\ location
+comment3.target=void\ placeStore(int,\ int)
+comment4.params=length
+comment4.target=void\ createPages(int)
+numComments=5

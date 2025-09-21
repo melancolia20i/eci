@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=Main
+comment1.params=
+comment1.target=Main()
+comment2.params=
+comment2.target=void\ init()
+comment2.text=\r\n\ This\ method\ inits\ all\ what\ we\ need\ in\ order\ to\ run\r\n\ the\ project\r\n\r\n\ @param\ \ \ \ \ nothing\r\n\ @return\ \ \ \ nothing\r\n
+numComments=3
