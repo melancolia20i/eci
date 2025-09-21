@@ -55,12 +55,12 @@ public class Circle {
 	 * @param newrow       new y coordinate
 	 * @param newcol       new x coordinate
 	 */
-	public void updatePosition (final int newrow, final int newcol)
+	public void updatePosition (final int newrow, final int newcol, final boolean show)
 	{
 		this.erase();
 		this.row = newrow;
 		this.col = newcol;
-		this.draw();
+		if (show) { this.draw(); }
 	}
 
 	/* draws the circle on the canvas, if visible.

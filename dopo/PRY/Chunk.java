@@ -53,7 +53,7 @@ public class Chunk
 	 *
 	 * @param total        number of chunks to initialize
 	 */
-	public static void renderForTheFirstTime(final int total)
+	public static void renderForTheFirstTime (final int total)
 	{
 		chunks = new Rectangle[maxPerPage];
 		for (int i = 0; i < total; i++)
@@ -69,11 +69,11 @@ public class Chunk
 	 * @param or           the orientation of the page (iteration order)
 	 * @param map          a byte array where {1 = visible}, {0 = hidden}
 	 */
-	public static void renderChunks(final PageOrientation or, final byte[] map)
+	public static void renderChunks (final PageOrientation or, final boolean[] map)
 	{
 		for (int i = or.getFrom(); i != or.getUntil(); i += or.getChange())
 		{
-			chunks[i].changeVisibility(map[i] == 1);
+			chunks[i].changeVisibility(map[i]);
 		}
 	}
 }

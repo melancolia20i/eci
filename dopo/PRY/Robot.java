@@ -63,11 +63,11 @@ public class Robot
 	private int    money;
 	private int    location;
 
-	public Robot (final int location)
+	public Robot (final int location, final boolean show)
 	{
 		this.location  = location;
 		this.origin    = location;
-		this.placeInChunk();
+		this.placeInChunk(show);
 	}
 
 	/* toggles robot visibility
@@ -84,7 +84,7 @@ public class Robot
 	 * @param by           number of chunks to move
 	 * @param reset        indicates if the robot has to go back to its spawn spot
 	 */
-	public void move (final int by, boolean reset)
+	public void move (final int by, final boolean reset, final boolean show)
 	{
 		if (reset)
 		{
@@ -94,20 +94,21 @@ public class Robot
 		else
 		{
 			this.location += by;
+			this.location %= Chunk.maxPerPage;
 		}
-		this.body.updatePosition(locations[this.location][0], locations[this.location][1]);
+		this.body.updatePosition(locations[this.location][0], locations[this.location][1], show);
 	}
 
 	public int getLocation () { return this.location; }
 
 	/* places the robot in its chunk and initializes its body
 	 */
-	private void placeInChunk ()
+	private void placeInChunk (final boolean show)
 	{
 		final int row = locations[this.location][0];
 		final int col = locations[this.location][1];
 
 		this.body = new Circle(row, col, sz, styles[this.location]);
-		this.body.changeVisibility(true);
+		this.body.changeVisibility(show);
 	}
 }

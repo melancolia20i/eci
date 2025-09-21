@@ -79,13 +79,13 @@ public class Store
 	/* @param tenges       initial amount of money the store has
 	 * @param location     location index of the store
 	 */
-	public Store (final int tenges, final int location)
+	public Store (final int tenges, final int location, final boolean show)
 	{
 		this.tenges    = tenges;
 		this.locatedAt = location;
 		this.available = true;
 
-		this.placeInChunk();
+		this.placeInChunk(show);
 	}
 
 	/* toggles store visibility
@@ -100,7 +100,7 @@ public class Store
 
 	/* places the store in its chunk and initializes its shapes
 	 */
-	private void placeInChunk ()
+	private void placeInChunk (final boolean show)
 	{
 		final int f_row = locations[this.locatedAt][0];
 		final int f_col = locations[this.locatedAt][1];
@@ -111,8 +111,8 @@ public class Store
 		this.fachada = new Rectangle(f_row, f_col, sz, sz, styles[this.locatedAt][0]);
 		this.techo   = new Triangle(t_row, t_col, sz, sz, styles[this.locatedAt][1]);
 
-		this.fachada.changeVisibility(true);
-		this.techo.changeVisibility(true);
+		this.fachada.changeVisibility(show);
+		this.techo.changeVisibility(show);
 	}
 }
 

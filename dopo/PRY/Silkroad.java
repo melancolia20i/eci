@@ -8,123 +8,82 @@
 
 import javax.swing.JOptionPane;
 
+
 public class Silkroad
 {
-	/* since the program can have more than Chunk.maxPerPage chunks we need a way
-	 * to store more than that amount, we are going to handle it with the concept
-	 * of a page
-	 */
-	private Page []pages;
+	public static int NO_PAGES;
 
-	private int length;
-	private int currentPage;
+	private int     length;
+	private int     currentnopage;
+	private Page [] pages;
 
-	public static int NOPAGES;
-
-	/* @param length       total length of the road in chunks
-	 */
 	public Silkroad (final int length)
 	{
-		NOPAGES     = (length + Chunk.maxPerPage - 1) / Chunk.maxPerPage;
+		NO_PAGES           = (length + Chunk.maxPerPage - 1) / Chunk.maxPerPage;
+		this.length        = length;
+		this.currentnopage = 0;
 
-		this.length      = length;
-		this.pages       = new Page[NOPAGES];
-		this.currentPage = 0;
-
+		Page.init(length);
 		this.createPages(length);
 	}
 
-	/* changes the current page to another page index
-	 *
-	 * @param to           page number (1-based index)
-	 */
 	public void changePage (int to)
 	{
 		to = to - 1;
-		if (this.currentPage == to)
+		if (this.currentnopage == to)
 		{
-			JOptionPane.showMessageDialog(
-				null, "That one is the current page...", Main.TITLE, JOptionPane.ERROR_MESSAGE
-			);
+			JOptionPane.showMessageDialog(null, "That one is the current page...", Main.TITLE, JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
-		this.pages[this.currentPage].changeVisibilityOfObjs(false);
+		this.pages[this.currentnopage].changeObjsVisibility(false);
 
-		final Page ncurr = this.pages[to];
-		Chunk.renderChunks(ncurr.getPageOr(), ncurr.getChunkMap());
+		final Page page = this.pages[to];
+		Chunk.renderChunks(page.getOrientation(), page.getVisibleChunks());
 
-		this.currentPage = to;
-		this.pages[this.currentPage].changeVisibilityOfObjs(true);
+		this.currentnopage = to;
+		this.pages[this.currentnopage].changeObjsVisibility(true);
 	}
 
-	/* places a store in the current page
-	 *
-	 * @param tenges       resources of the store
-	 * @param location     location index (1-based)
-	 */
 	public void placeStore (final int tenges, final int location)
 	{
-		this.pages[this.currentPage].createStore(tenges, location - 1);
+		this.pages[this.currentnopage].placeStore(tenges, location - 1);
 	}
 
-	/* removes a store in the current page
-	 *
-	 * @param location     location index (1-based)
-	 */
 	public void removeStore (final int location)
 	{
-		this.pages[this.currentPage].removeStore(location - 1);
+		this.pages[this.currentnopage].removeStore(location - 1);
 	}
 
-	/* places a robot in the current page
-	 *
-	 * @param location     location index (1-based)
-	 */
 	public void placeRobot (final int location)
 	{
-		this.pages[this.currentPage].createRobot(location - 1);
+		this.pages[this.currentnopage].placeRobot(location - 1);
 	}
 
-	/* removes a robot in the current page
-	 *
-	 * @param home     location index (1-based)
-	 */
-	public void removeRobot (final int home)
+	public void removeRobot (final int location)
 	{
-		this.pages[this.currentPage].removeRobot(home - 1);
+		this.pages[this.currentnopage].removeRobot(location - 1);
 	}
 
-	/* moves a robot given its current location and the meters
-	 *
-	 * @param location     location where the robot to move is currently in
-	 * @param meters       number of chunks to move (> 0 forward, < 0 backwards)
-	 */
 	public void moveRobot (final int location, final int meters)
 	{
-		this.pages[this.currentPage].moveRobot(location - 1, meters);
+		this.pages[this.currentnopage].moveRobot(location - 1, meters);
 	}
 
-	/* creates all pages of the road and initializes the first one
-	 *
-	 * @param length       total road length in chunks
-	 */
 	private void createPages (int length)
 	{
-		/* sets how long is the road for each page and displays
-		 * the first page
-		 */
-		for (int i = 0; i < NOPAGES; i++)
+		this.pages = new Page[NO_PAGES];
+		for (int i = 0; i < NO_PAGES; i++)
 		{
-			final PageOrientation or = PageOrientation.getOrientationBasedOnPageIndex(i);
+			final PageOrientation orientation = PageOrientation.getOrientationBasedOnPageIndex(i);
 
 			if (length >= Chunk.maxPerPage)
 			{
-				this.pages[i] = new Page(Chunk.maxPerPage, or, i);
+				this.pages[i] = new Page(Chunk.maxPerPage, orientation, i);
 			}
-			else if (length > 0)
+			else
 			{
-				this.pages[i] = new Page(length, or, i);
+				this.pages[i] = new Page(length, orientation, i);
 			}
 			length -= Chunk.maxPerPage;
 		}

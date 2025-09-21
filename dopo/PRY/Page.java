@@ -1,5 +1,5 @@
 /* represents a page of the road.
- * A page contains chunks, stores and robots
+ * A page contains chunks, STORES and ROBOTS
  * associated with a specific PageOrientation.
  *
  * @author  Hever Barrera ; Juan Diego Patiño
@@ -8,213 +8,177 @@
 
 import javax.swing.JOptionPane;
 
+
 public class Page
 {
-	/* this map will tell us what chunks should be visible for this page
-	 * 1 if it should be, 0 otherwise
-	 */
-	private byte []chunkMap;
+	private static Store   [] STORES;
+	private static Robot   [] ROBOTS;
+	private static boolean [] SPAWNS;
+	private static int        TLENGTH;
 
-	private Store []storesMap;
-	private Robot []robotsMap;
-
-	/* since no robot can be spawned in the same spot as other
-	 * we need to track where a robot has been placed before
-	 */
-	private boolean []spotUsedAsHome;
-
-	/* specifies this page length in terms of amount of chunks
-	 */
-	private int length;
-
-	private PageOrientation or;
-
-	private int pageNumber;
-
-	/* @param thisLength   number of chunks in this page
-	 * @param or           orientation of the page
-	 */
-	public Page (final int thisLength, final PageOrientation or, final int pageNumber)
+	public static void init (final int totalLength)
 	{
-		this.length         = thisLength;
-		this.or             = or;
-		this.chunkMap       = new byte[Chunk.maxPerPage];
-		this.storesMap      = new Store[Chunk.maxPerPage];
-		this.robotsMap      = new Robot[Chunk.maxPerPage];
-		this.spotUsedAsHome = new boolean[Chunk.maxPerPage];
-		this.pageNumber     = pageNumber;
+		STORES = new Store   [totalLength];
+		ROBOTS = new Robot   [totalLength];
+		SPAWNS = new boolean [totalLength];
 
-		for (int i = or.getFrom(), j = 0; i != or.getUntil() && j < thisLength; i += or.getChange())
+		for (int i = 0; i < totalLength; i++)
 		{
-			this.chunkMap[i] = 1;
-			this.spotUsedAsHome[i] = false;
+			STORES[i]      = null;
+			ROBOTS[i]      = null;
+			SPAWNS[i] = false;
+		}
+
+		TLENGTH = totalLength;
+	}
+
+	private int             length;
+	private int             pageNo;
+	private PageOrientation orientation;
+	private boolean []      visibleChunks;
+
+
+	public Page (final int length, final PageOrientation orientation, final int pageNo)
+	{
+		this.length        = length;
+		this.pageNo        = pageNo;
+		this.orientation   = orientation;
+		this.visibleChunks = new boolean[Chunk.maxPerPage];
+
+		for (int i = orientation.getFrom(), j = 0; i != orientation.getUntil() && j < length; i += orientation.getChange())
+		{
+			this.visibleChunks[i] = true;
 			j++;
 		}
 	}
 
-	/* changes the visibility of all stores and robots in this page.
-	 *
-	 * @param state true to show, false to hide
-	 */
-	public void changeVisibilityOfObjs (final boolean state)
+	public void changeObjsVisibility (final boolean state)
 	{
-		for (int i = 0; i < Chunk.maxPerPage; i++)
+		final int run = this.pageNo * Chunk.maxPerPage;
+		for (int i = run; i < run + this.length; i++)
 		{
-			if (this.storesMap[i] != null)
+			if (STORES[i] != null)
 			{
-				this.storesMap[i].changeVisibility(state);
+				STORES[i].changeVisibility(this.isLocWithinThisPage(i));
 			}
-			if (this.robotsMap[i] != null)
+			if (ROBOTS[i] != null)
 			{
-
-				this.robotsMap[i].changeVisibility(state);
+				ROBOTS[i].changeVisibility(this.isLocWithinThisPage(i));
 			}
 		}
 	}
 
-	/* creates a store at the given location if it is free.
-	 *
-	 * @param tenges       resources of the store
-	 * @param location     position within this page
-	 */
-	public void createStore (final int tenges, final int location)
+	public void placeStore (final int tenges, final int location)
 	{
-		if (!this.checkBounds(location)) { return; }
-
-		final int loc = this.or.getObjLoc(location);
-		if (this.storesMap[loc] != null)
+		if (!this.checkbounds(location))
 		{
-			JOptionPane.showMessageDialog(null, "There's a store already", Main.TITLE, JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		this.storesMap[loc] = new Store(tenges, loc);
+
+		if (STORES[location] != null)
+		{
+			JOptionPane.showMessageDialog(null, "there's a store already", Main.TITLE, JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		STORES[location] = new Store(tenges, this.orientation.getObjLoc(location), this.isLocWithinThisPage(location));
 	}
 
-	/* removes a store at the given location if there's a store there.
-	 *
-	 * @param location     position within this page
-	 */
 	public void removeStore (final int location)
 	{
-		if (!this.checkBounds(location)) { return; }
-
-		final int loc = this.or.getObjLoc(location);
-		if (this.storesMap[loc] == null)
+		if (!this.checkbounds(location))
 		{
-			JOptionPane.showMessageDialog(null, "There's no store there", Main.TITLE, JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
-		this.storesMap[loc].changeVisibility(false);
-		this.storesMap[loc] = null;
+		if (STORES[location] == null)
+		{
+			JOptionPane.showMessageDialog(null, "there's no store here", Main.TITLE, JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		STORES[location].changeVisibility(false);
+		STORES[location] = null;
 	}
 
-	/* creates a new robot in the location given, be aware that no robot can be placed
-	 * in the same home spot as other, no robot can be placed where there's a store
-	 *
-	 * @param location     location given
-	 */
-	public void createRobot (final int location)
+	public void placeRobot (final int location)
 	{
-		if (!this.checkBounds(location)) { return; }
-
-		final int loc = this.or.getObjLoc(location);
-		if (this.spotUsedAsHome[loc])
+		if (!this.checkbounds(location))
 		{
-			JOptionPane.showMessageDialog(null, "Spot used as home previously", Main.TITLE, JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
-		if (this.storesMap[loc] != null)
+		if (SPAWNS[location])
 		{
-			JOptionPane.showMessageDialog(null, "Cannot place a robot here, there's a store", Main.TITLE, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "spot used as home previously", Main.TITLE, JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		if (STORES[location] != null)
+		{
+			JOptionPane.showMessageDialog(null, "cannot place a robot here, there's a store", Main.TITLE, JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
-		this.robotsMap[loc] = new Robot(loc);
-		this.spotUsedAsHome[loc] = true;	
+		ROBOTS[location] = new Robot(this.orientation.getObjLoc(location), this.isLocWithinThisPage(location));
+		SPAWNS[location] = true;
 	}
 
-	/* removes a robot at the given home location, the user cannot give  the
-	 * current position of the robot but instead the location where it spawns
-	 *
-	 * @param home         the position where the robot spawn
-	 */
-	public void removeRobot (final int home)
+	public void removeRobot (final int location)
 	{
-		if (!this.checkBounds(home)) { return; }
-
-		final int loc = this.or.getObjLoc(home);
-		if (!this.spotUsedAsHome[loc])
+		if (!this.checkbounds(location))
 		{
-			JOptionPane.showMessageDialog(null, "No robot spawns there", Main.TITLE, JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
-		this.robotsMap[loc].changeVisibility(false);
-		this.robotsMap[loc] = null;
-		this.spotUsedAsHome[loc] = false;
+		if (!SPAWNS[location])
+		{
+			JOptionPane.showMessageDialog(null, "no robot spawns there", Main.TITLE, JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		ROBOTS[location].changeVisibility(false);
+		ROBOTS[location] = null;
+		SPAWNS[location] = false;
 	}
 
 	public void moveRobot (final int location, final int meters)
 	{
-		if (!this.checkBounds(location)) { return; }
-
-		final int loc = this.or.getObjLoc(location);
-		if (this.robotsMap[loc] == null)
+		if (!this.checkbounds(location))
 		{
-			JOptionPane.showMessageDialog(null, "No robot is there", Main.TITLE, JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
-		final int terminal = meters + this.or.getObjLoc(this.robotsMap[loc].getLocation());
-
-		if (terminal < 0 && this.pageNumber == 0)
+		if (ROBOTS[location] == null)
 		{
-			JOptionPane.showMessageDialog(null, "cannot move robot further; first page limit reached", Main.TITLE, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "no robot is there", Main.TITLE, JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
-		if (terminal >= this.length && this.pageNumber == (Silkroad.NOPAGES - 1))
+		final int endsup = meters + this.orientation.getObjLoc(ROBOTS[location].getLocation());
+		if (endsup < 0 || endsup >= TLENGTH)
 		{
-			JOptionPane.showMessageDialog(null, "cannot move robot further; last page limit reached", Main.TITLE, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "goes outta bounds", Main.TITLE, JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
-		if (terminal >= 0 && terminal < this.length)
-		{
-			this.robotsMap[loc].move(meters, false);
-		}
-
-		if (terminal < 0)
-		{
-			System.out.println("back");
-		}
-
-		if (terminal >= this.length)
-		{
-			System.out.println("forward");
-		}
+		ROBOTS[location].move(meters, false, this.isLocWithinThisPage(endsup));
 	}
 
-	public int getLength ()             { return this.length; }
-	public byte []getChunkMap ()        { return this.chunkMap; }
-	public PageOrientation getPageOr () { return this.or; }
+	public int getLength ()                  { return this.length; }
+	public PageOrientation getOrientation () { return this.orientation; }
+	public boolean [] getVisibleChunks ()    { return this.visibleChunks; }
 
-	/* removes a store at the given location if there's a store there.
-	 *
-	 * @param location     location given
-	 * @return             if the location is within bounds
-	 */
-	private boolean checkBounds (final int location)
+	private boolean checkbounds (final int location)
 	{
-		if (location >= this.length)
+		if (location >= TLENGTH || location < 0)
 		{
-			JOptionPane.showMessageDialog(null, "Store outta bounds", Main.TITLE, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "location outta bounds", Main.TITLE, JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
-
 		return true;
 	}
-}
 
+	private boolean isLocWithinThisPage (final int location)
+	{
+		return (location >= (this.pageNo * Chunk.maxPerPage)) && (location <= (this.pageNo * (Chunk.maxPerPage + 1)));
+	}
+}

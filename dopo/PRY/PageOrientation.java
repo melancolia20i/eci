@@ -58,9 +58,9 @@ public enum PageOrientation
 	{
 		if (this.from == 0)
 		{
-			return location;
+			return (location % Chunk.maxPerPage);
 		}
-		return Chunk.maxPerPage - location - 1;
+		return (Chunk.maxPerPage - (location % Chunk.maxPerPage) - 1);
 	}
 
 	/* returns the orientation for a given page index.
