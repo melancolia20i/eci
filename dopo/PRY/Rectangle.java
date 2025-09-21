@@ -1,8 +1,9 @@
-/**
- * Write a description of class Rectangle here.
+/* represents a rectangle drawable on the canvas.
+ * A rectangle has position, size, color, and a
+ * visibility state.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author  Hever Barrera ; Juan Diego Patiño
+ * @version 0.2v
  */
 
 public class Rectangle
@@ -14,6 +15,12 @@ public class Rectangle
 	private Colors  color;
 	private boolean visible;
 
+	/* @param row          y coordinate
+	 * @param col          x coordinate
+	 * @param height       height of the rectangle
+	 * @param width        width of the rectangle
+	 * @param color        color of the rectangle
+	 */
 	public Rectangle (final int row, final int col, final int height, final int width, final Colors color)
 	{
 		this.row     = row;
@@ -24,6 +31,10 @@ public class Rectangle
 		this.visible = false;
 	}
 
+	/* changes the visibility of the rectangle.
+	 *
+	 * @param              status true to show, false to hide
+	 */
 	public void changeVisibility (final boolean status)
 	{
 		if (status)
@@ -38,6 +49,8 @@ public class Rectangle
 		}
 	}
 
+	/* draws the rectangle on the canvas if visible.
+	 */
 	private void draw ()
 	{
 		if (!this.visible) { return; }
@@ -46,6 +59,8 @@ public class Rectangle
 		canvas.wait(10);
 	}
 
+	/* erases the rectangle from the canvas if visible.
+	 */
 	private void erase ()
 	{
 		if (!this.visible) { return; }
@@ -53,3 +68,4 @@ public class Rectangle
 		canvas.erase(this);
 	}
 }
+

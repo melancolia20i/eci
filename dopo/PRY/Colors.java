@@ -1,8 +1,7 @@
-/**
- * Write a description of class color here.
+/* defines all available colors for the project
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author  Hever Barrera ; Juan Diego Patiño
+ * @version 0.2vk
  */
 
 import java.awt.Color;
@@ -66,6 +65,11 @@ public enum Colors
 
 	private Color color;
 
+	/* @param color        an instance of java awt color
+	 */
 	Colors (Color color)     { this.color = color; }
+
+	/* @return             value of this color as a java awt object
+	 */
 	public Color getColor () { return this.color; }
 }

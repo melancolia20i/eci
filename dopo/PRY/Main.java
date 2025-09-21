@@ -1,6 +1,6 @@
-/**
- * This class only takes tne road length and checks its value, then it calls
- * the real backend of the project (this is the starting point)
+/* this class is only meant to be used if BlueJ is not used, even though
+ * it wouldn't work since the program does provide controls to make the
+ * game work
  *
  * @author Hever Barrera ; Juan Diego Patiño
  * @version 0.2v
@@ -16,12 +16,8 @@ public class Main
 
 	public Main () { this.init(); }
 
-	/**
-	 * This method inits all what we need in order to run
+	/* this method inits all what we need in order to run
 	 * the project
-	 *
-	 * @param     nothing
-	 * @return    nothing
 	 */
 	private void init ()
 	{

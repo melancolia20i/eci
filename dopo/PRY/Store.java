@@ -1,8 +1,8 @@
-/**
- * Write a description of class Store here.
+/* this class handles the concept of a store which is a instance
+ * of a rectangle an cicrle with some tenges (money)
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author  Hever Barrera ; Juan Diego Patino
+ * @version 0.2v
  */
 
 public class Store
@@ -10,7 +10,7 @@ public class Store
 	/* each store has a different style (styles may repeat
 	 * per pages since we do not want to create a very big number
 	 * of styles) (the style cycle repeats itself every Chunk.maxPerPage stores)
-	 * */
+	 */
 	private static final Colors [][] styles =
 	{
 		{Colors.C1_F , Colors.C1_T },
@@ -33,9 +33,9 @@ public class Store
 	};
 
 	/* just as we did in Chunk class we compute the positions where each
-	 * store should be placed at so we do not wast time recomputing for
+	 * store should be placed at so we do not waste time recomputing for
 	 * every single one of them
-	 * */
+	 */
 	private static final int [][]locations =
 	{
 		{75,  0,   50,  12},
@@ -59,16 +59,16 @@ public class Store
 
 	/* each store starts with a fixed number of tenges, we need to resupply
 	 * the store by the same amount
-	 * */
+	 */
 	private final int tenges;
 
 	/* when a robot comes to this store, it will take the money so this
 	 * store will no longer be available until next day
-	 * */
+	 */
 	private boolean available; 
 
 	/* index chosen for this store [0 - 16] (index of locations)
-	 * */
+	*/
 	private int locatedAt;
 
 	private static final int sz = 25;
@@ -76,6 +76,9 @@ public class Store
 	private Rectangle fachada;
 	private Triangle  techo;
 
+	/* @param tenges       initial amount of money the store has
+	 * @param location     location index of the store
+	 */
 	public Store (final int tenges, final int location)
 	{
 		this.tenges    = tenges;
@@ -85,12 +88,18 @@ public class Store
 		this.placeInChunk();
 	}
 
+	/* toggles store visibility
+	 *
+	 * @param state        true to show, false to hide
+	 */
 	public void changeVisibility (final boolean state)
 	{
 		this.fachada.changeVisibility(state);
 		this.techo.changeVisibility(state);
 	}
 
+	/* places the store in its chunk and initializes its shapes
+	 */
 	private void placeInChunk ()
 	{
 		final int f_row = locations[this.locatedAt][0];
@@ -106,3 +115,4 @@ public class Store
 		this.techo.changeVisibility(true);
 	}
 }
+

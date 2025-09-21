@@ -1,9 +1,0 @@
-#BlueJ class context
-comment0.target=Chunk
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Chunk\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=total
-comment1.target=void\ renderForTheFirstTime(int)
-comment1.text=\ this\ will\ draw\ the\ chunks\ in\ the\ JFrame\ window,\ once\ they're\r\n\ draw\ they\ will\ never\ be\ erased\ only\ hidden\ if\ needed\r\n
-comment2.params=or\ map
-comment2.target=void\ renderChunks(PageOrientation,\ byte[])
-numComments=3
