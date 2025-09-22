@@ -16,6 +16,7 @@ public class Silkroad
 	private int     length;
 	private int     currentnopage;
 	private Page [] pages;
+	private int     totalMoney;
 
 	public Silkroad (final int length)
 	{
@@ -25,6 +26,7 @@ public class Silkroad
 
 		Page.init(length);
 		this.createPages(length);
+		this.totalMoney = 0;
 	}
 
 	public void changePage (int to)
@@ -47,6 +49,7 @@ public class Silkroad
 
 	public void placeStore (final int tenges, final int location)
 	{
+		this.totalMoney += tenges;
 		this.pages[this.currentnopage].placeStore(tenges, location - 1);
 	}
 
@@ -88,6 +91,13 @@ public class Silkroad
 			length -= Chunk.maxPerPage;
 		}
 		Chunk.renderForTheFirstTime(this.pages[0].getLength());
+	}
+
+	public static void updateProgressBar ()
+	{
+		for (int i = 0; i < Page.TLENGTH; i++)
+		{
+		}
 	}
 }
 

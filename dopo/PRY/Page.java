@@ -160,7 +160,29 @@ public class Page
 			return;
 		}
 
+		if (STORES[endsup] != null && STORES[endsup].getAvailable())
+		{
+			STORES[endsup].setAsNoLongerAvailable();
+
+		}
+
 		ROBOTS[location].move(meters, false, this.isLocWithinThisPage(endsup));
+		ROBOTS[location].updateMoney(meters);
+	}
+
+	public void reboot ()
+	{
+		for (int i = 0; i < Chunk.maxPerPage; i++)
+		{
+			if (ROBOTS[i] != null)
+			{
+				ROBOTS[i].move(0, true, this.isLocWithinThisPage(i));
+			}
+			if (STORES[i] != null)
+			{
+				STORES[i].resupply();
+			}
+		}
 	}
 
 	public int getLength ()                  { return this.length; }

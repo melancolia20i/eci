@@ -114,5 +114,17 @@ public class Store
 		this.fachada.changeVisibility(show);
 		this.techo.changeVisibility(show);
 	}
+
+	private void setAsNoLongerAvailable ()
+	{
+		this.available = false;
+	}
+
+	private void resuply ()
+	{
+		this.available = true;
+	}
+
+	public boolean getAvailable () { return this.available; }
 }
 

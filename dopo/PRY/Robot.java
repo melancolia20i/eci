@@ -111,4 +111,14 @@ public class Robot
 		this.body = new Circle(row, col, sz, styles[this.location]);
 		this.body.changeVisibility(show);
 	}
+
+	private void updateMoney (final int by)
+	{
+		this,money -= Math.abs(by);
+	}
+
+	public int getMoney ()
+	{
+		return this.money;
+	}
 }
