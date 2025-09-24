@@ -1,2 +1,0 @@
-commit				descripcion
-				crear Canvas y cambiar entre paginas

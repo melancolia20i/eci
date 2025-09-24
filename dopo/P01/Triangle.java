@@ -1,0 +1,63 @@
+/**
+ *         __ __ __                        __ 
+ * .-----.|__|  |  |--.----.-----.---.-.--|  |
+ * |__ --||  |  |    <|   _|  _  |  _  |  _  |
+ * |_____||__|__|__|__|__| |_____|___._|_____|
+ *
+ * @author	hever barrera batero ; juan diego patino munoz
+ * @version	1
+ *
+ * Provides a class which draws and handles a triangle which is used to
+ * represent a store's roof (pretty much useless)
+ */
+
+public class Triangle
+{
+	private final int    pxrow;
+	private final int    pxcol;
+	private final int    width;
+	private final int    height;
+	private final SColor color;
+	private boolean      visible;
+
+	public Triangle (final int pxrow, final int pxcol, final int height, final int width, final SColor color)
+	{
+		this.pxrow   = pxrow;
+		this.pxcol   = pxcol;
+		this.width   = width;
+		this.height  = height;
+		this.color   = color;
+		this.visible = false;
+	}
+
+	public void changevisibility (final boolean state)
+	{
+		if (state)
+		{
+			this.visible = true;
+			this.draw();
+			return;
+		}
+		this.erase();
+		this.visible = false;
+	}
+
+	private void draw ()
+	{
+		if (!this.visible) { return; }
+		final Canvas canvas = Canvas.getcanvas();
+
+		final int [] xs = { this.pxcol, this.pxcol + (this.width / 2), this.pxcol - (this.width / 2) };
+		final int [] ys = { this.pxrow, this.pxrow + this.height, this.pxrow + this.height };
+
+		canvas.draw(this, this.color, new java.awt.Polygon(xs, ys, 3));
+		canvas.pause(Misc.RENDERMS);
+	}
+
+	private void erase ()
+	{
+		if (!this.visible) { return; }
+		final Canvas canvas = Canvas.getcanvas(); 
+		canvas.erase(this);
+	}
+}
