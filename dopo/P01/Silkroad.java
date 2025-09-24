@@ -8,7 +8,10 @@
  * @version	1
  *
  * Provides the starting point of the project, recall this project
- * must be run from BlueJ, which implies there's no main funcion
+ * must be run from BlueJ, which implies there's no main funcion.
+ *
+ * Do not confuse this file with 'Road', this class provides the
+ * controls of the simulation
  */
 
 public class Silkroad
@@ -22,6 +25,7 @@ public class Silkroad
 	public Silkroad (final int length)
 	{
 		Silkroad.LENGTH = length;
+		Road.createRoad();
 	}
 
 	public Silkroad (final int[][] days)

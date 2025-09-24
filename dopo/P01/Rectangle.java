@@ -8,7 +8,7 @@
  * @version	1
  *
  * Provides a class which draws and handles the shape of a rectangle, used
- * for representing the stores
+ * for representing the stores and the terrain of the road
  */
 
 public class Rectangle

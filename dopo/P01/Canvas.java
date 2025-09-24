@@ -51,7 +51,7 @@ public class Canvas extends JFrame
 			_host = new Canvas(Misc.T0, _winsz, _winsz, SColor.sand.getcolor());
 		}
 
-		SwingUtilities.invokeLater(() -> _host.setVisible(true));
+		_host.setVisible(true);
 		return _host;
 	}
 
