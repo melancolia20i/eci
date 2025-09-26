@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=Canvas
+comment1.params=
+comment1.target=Canvas\ getcanvas()
+comment2.params=title\ width\ height\ bg
+comment2.target=Canvas(java.lang.String,\ int,\ int,\ java.awt.Color)
+comment3.params=state
+comment3.target=void\ setVisible(boolean)
+comment4.params=ref\ color\ shape
+comment4.target=void\ draw(java.lang.Object,\ SColor,\ java.awt.Shape)
+comment5.params=ref
+comment5.target=void\ erase(java.lang.Object)
+comment6.params=color
+comment6.target=void\ setbackgroundcolor(SColor)
+comment7.params=ms
+comment7.target=void\ pause(int)
+comment8.params=
+comment8.target=void\ redraw()
+comment9.params=
+comment9.target=void\ clscanvas()
+numComments=10

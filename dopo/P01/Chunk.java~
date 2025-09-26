@@ -84,10 +84,31 @@ public class Chunk
 	public void placeRobot ()
 	{
 		this.robot = new Robot(
+			this.globalId,
 			this.orientedby.getModifiedIndexBasedOnInternalId(this.internalId),
 			this.displayed
 		);
 		this.robots.add(this.robot);
+	}
+
+	/**
+	 * Elimina la instancia de este chunk con respecto a su robot, quiere decir
+	 * que ningun robot spawneara aca hasta que se cree uno nuevo
+	 */
+	public void killRobot ()
+	{
+		this.robot.changevisibility(false);
+		this.robot = null;
+	}
+
+	/**
+	 * Esta funcion solo se llama desde el metodo 'killRobot' ya que lo que hace esta
+	 * funcion es eliminar toda referencia que se tenga del robot que se quiere borrar
+	 * @param positionInQueue posicion en la que se encuentra el robot en este chunk
+	 */
+	public void colateralKill (final int positionInQueue)
+	{
+		this.robots.remove(positionInQueue);
 	}
 
 	/**

@@ -194,6 +194,31 @@ public class Road
 	}
 
 	/**
+	 * Intenta remover un robot en la posicion especificada plus
+	 * la referencia el robot donde sea que este
+	 * @param location posicion en la que spawnea el robot a eliminar
+	 */
+	public static boolean removeRobot (final int location)
+	{	
+		if (_fullroad[location].getRobot() == null)
+		{
+			return false;
+		}
+
+		final Robot robot   = _fullroad[location].getRobot();
+		final int robotIsAt = robot.getGlobalChunkNo();
+
+		if (location != robotIsAt)
+		{
+			_fullroad[robotIsAt].colateralKill(robot.getPositionInQueue());
+		}
+
+		_fullroad[location].killRobot();
+		return true;
+	}
+	// TODO: TEST la eliminacion de robots cuando se puedan mover
+
+	/**
 	 * Muestra el terreno dependiendo de la pagina actual
 	 * y su orientacion (par o impar).
 	 */

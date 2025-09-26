@@ -97,13 +97,28 @@ public class Misc
 	/**
 	 * Muestra un mensaje de error cuando se intenta colocar un robot
 	 * en una ubicacion que ya tiene un robot pero no se puede
-	 * @param location ubicacion donde se intento colocar la tienda
+	 * @param location ubicacion donde se intento colocar el robot
 	 */
 	public static void invalidLocationToPlaceARobotAt (final int location)
 	{
 		JOptionPane.showMessageDialog(
 			null,
 			String.format("cannot place a robot at location %d: make sure ain't a store nor robot there", location),
+			T0,
+			JOptionPane.ERROR_MESSAGE
+		);
+	}
+
+	/**
+	 * Muestra un mensaje de error cuando se intenta borrar un robot
+	 * en una ubicacion en la que no spawnea ningun robot
+	 * @param location ubicacion donde se intento borrar el robot
+	 */
+	public static void invalidLocationToRemoveARobotAt (final int location)
+	{
+		JOptionPane.showMessageDialog(
+			null,
+			String.format("cannot remove a robot at location %d: no robot spawns there", location),
 			T0,
 			JOptionPane.ERROR_MESSAGE
 		);

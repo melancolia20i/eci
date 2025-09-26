@@ -75,7 +75,6 @@ public class Silkroad
 		if (!this.ok)
 		{
 			Misc.invalidLocationToPlaceAStoreAt(location);
-			return;
 		}
 	}
 
@@ -95,10 +94,13 @@ public class Silkroad
 		if (!this.ok)
 		{
 			Misc.invalidLocationToRemoveAStoreAt(location);
-			return;
 		}
 	}
 
+	/**
+	 * intenta colocar un robot en la posicion dada
+	 * @param location posicion del chunk
+	 */
 	public void placeRobot (final int location)
 	{
 		if (location < 0 || location >= LENGTH)
@@ -110,7 +112,24 @@ public class Silkroad
 		if (!this.ok)
 		{
 			Misc.invalidLocationToPlaceARobotAt(location);
+		}
+	}
+
+	/**
+	 * intenta borrar un robot en la posicion especificada
+	 * @param location posicion del chunk
+	 */
+	public void removeRobot (final int location)
+	{
+		if (location < 0 || location >= LENGTH)
+		{
+			Misc.invalidLocationGivenViaBlueJDialogs(location);
 			return;
+		}
+		this.ok = Road.removeRobot(location);
+		if (!this.ok)
+		{
+			Misc.invalidLocationToRemoveARobotAt(location);
 		}
 	}
 }

@@ -73,14 +73,29 @@ public class Robot
 	private int    tenges;
 
 	/**
+	 * Ya que un robot puede avanzar en chunks, necesitamos
+	 * saber siempre en que chunk esta para cuando lo removamos
+	 * el robot poderlo hacerlo totalmente
+	 */
+	private int    currentlyInChunkNo;
+
+	/**
+	 * Ya que puede haber mas de un robot en el mismo chunk necesitamos
+	 * saber en que posicion llego el robot al actual chunk
+	 */
+	private int    positionInQueue;
+
+	/**
 	 * Constructor del robot.
 	 * @param nth indice que determina las coordenadas y colores
 	 * @param displaynow indica si debe mostrarse al crearse
 	 */
-	public Robot (final int nth, final boolean displaynow)
+	public Robot (final int currentGlobalChunkNo, final int nth, final boolean displaynow)
 	{
-		this.body   = new Circle(_locs[nth][0], _locs[nth][1], _sz, _colors[nth]);
-		this.tenges = 0;
+		this.body               = new Circle(_locs[nth][0], _locs[nth][1], _sz, _colors[nth]);
+		this.tenges             = 0;
+		this.currentlyInChunkNo = currentGlobalChunkNo;
+		this.positionInQueue    = 0;
 
 		this.changevisibility(displaynow);
 	}
@@ -92,5 +107,23 @@ public class Robot
 	public void changevisibility (final boolean to)
 	{
 		this.body.changevisibility(to);
+	}
+
+	/**
+	 * Retorna el indece global del chunk en el que esta actualemente
+	 * @return indice del chunk en que se encuentra el robot
+	 */
+	public int getGlobalChunkNo ()
+	{
+		return this.currentlyInChunkNo;
+	}
+
+	/**
+	 * Retorna el indece en el que se encuentra el robot del chunk actual
+	 * @return posicion dentro del chunk
+	 */
+	public int getPositionInQueue ()
+	{
+		return this.positionInQueue;
 	}
 }
