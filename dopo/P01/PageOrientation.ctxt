@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=PageOrientation
+comment0.text=\r\n\ \ \ \ \ \ \ \ \ __\ __\ __\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ __\ \r\n\ .-----.|__|\ \ |\ \ |--.----.-----.---.-.--|\ \ |\r\n\ |__\ --||\ \ |\ \ |\ \ \ \ <|\ \ \ _|\ \ _\ \ |\ \ _\ \ |\ \ _\ \ |\r\n\ |_____||__|__|__|__|__|\ |_____|___._|_____|\r\n\r\n\ @author\ \ hever\ barrera\ batero\ ;\ juan\ diego\ patino\ munoz\r\n\ @version\ 1\r\n\r\n\ Esta\ enumeracion\ define\ como\ las\ paginas\ cambian\ su\ orientacion\r\n\ dependiendo\ de\ si\ el\ numero\ de\ pagina\ es\ par\ o\ impar.\r\n\r\n\ Paginas\ pares\:\ comienzan\ desde\ la\ esquina\ superior\ izquierda\ de\ la\ pantalla.\ \ \r\n\ Paginas\ impares\:\ comienzan\ desde\ el\ centro\ de\ la\ pantalla.\r\n
+comment1.params=pageno
+comment1.target=PageOrientation\ orientationOf(int)
+comment1.text=\r\n\ Determina\ la\ orientacion\ segun\ el\ numero\ de\ pagina.\r\n\ @param\ pageno\ numero\ de\ pagina\r\n\ @return\ EVEN\ si\ el\ numero\ de\ pagina\ es\ par,\ ODD\ si\ es\ impar\r\n
+comment2.params=starts\ ends\ delta
+comment2.target=PageOrientation(int,\ int,\ int)
+comment2.text=\r\n\ Constructor\ privado\ de\ la\ enumeracion\ PageOrientation.\r\n\ Define\ los\ valores\ de\ inicio,\ fin\ y\ delta\ de\ la\ orientacion.\r\n\ @param\ starts\ posicion\ inicial\r\n\ @param\ ends\ posicion\ final\r\n\ @param\ delta\ direccion\ de\ avance\ (1\ hacia\ adelante,\ -1\ hacia\ atras)\r\n
+comment3.params=id
+comment3.target=int\ getModifiedIndexBasedOnInternalId(int)
+comment3.text=\r\n\ Obtiene\ el\ indice\ modificado\ en\ base\ al\ identificador\ interno,\r\n\ teniendo\ en\ cuenta\ la\ orientacion\ de\ la\ pagina.\r\n\ @param\ id\ identificador\ interno\r\n\ @return\ indice\ ajustado\ segun\ la\ orientacion\r\n
+comment4.params=
+comment4.target=int\ getstarts()
+comment4.text=\r\n\ @return\ valor\ inicial\ de\ la\ orientacion\r\n
+comment5.params=
+comment5.target=int\ getends()
+comment5.text=\r\n\ @return\ valor\ final\ de\ la\ orientacion\r\n
+comment6.params=
+comment6.target=int\ getdelta()
+comment6.text=\r\n\ @return\ delta\ o\ direccion\ de\ la\ orientacion\r\n
+numComments=7
