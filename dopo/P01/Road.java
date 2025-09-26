@@ -81,6 +81,17 @@ public class Road
 	public static int CURPAGE = 0;
 
 	/**
+	 * Numero total de tenges obtenidos este dia
+	 */
+	public static int PROFIT = 0;
+
+	/**
+	 * Maximo numero de tenges que se puden obtener (no se le resta
+	 * el numero de pasos)
+	 */
+	public static int MAXPROFIT = 0;
+
+	/**
 	 * Crea la carretera inicial con todos sus chunks y rectangulos de terreno.
 	 */
 	public static void createRoad ()
@@ -152,6 +163,7 @@ public class Road
 		}
 
 		_fullroad[location].inaugurateStore(tenges);
+		MAXPROFIT += tenges;
 		return true;
 	}
 
@@ -251,8 +263,14 @@ public class Road
 		final Store storeathatpos = _fullroad[desination].getStore();
 		if (storeathatpos != null && storeathatpos.getAvailableness())
 		{
-			robot.increaseProfit(storeathatpos.getTengesAmount());
+			final int cost = Math.abs(meters);
+			final int finalprofit = storeathatpos.getTengesAmount() - cost;
+
+			robot.increaseProfit(finalprofit);
 			storeathatpos.setAvailableness(false);
+
+			PROFIT += finalprofit;
+			Canvas.updateProgressBar((int) ((double) PROFIT * 100 / MAXPROFIT));
 		}
 		return true;
 	}
@@ -268,6 +286,9 @@ public class Road
 		{
 			_fullroad[i].newDayBaby();
 		}
+
+		PROFIT = 0;
+		Canvas.updateProgressBar(0);
 		return true;
 	}
 

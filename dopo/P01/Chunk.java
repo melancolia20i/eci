@@ -156,12 +156,15 @@ public class Chunk
 				this.displayed,
 				this.orientedby.getModifiedIndexBasedOnInternalId(this.internalId)
 			);
+
+			this.robot.setGlobalChunkNo(this.globalId);
 		}
 
 		this.robots.clear();
 		if (this.robot != null)
 		{
 			this.robots.add(this.robot);
+			this.robot.setPositionInQueue(0);
 		}
 	}
 

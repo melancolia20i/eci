@@ -62,6 +62,15 @@ public class Canvas extends JFrame
 	}
 
 	/**
+	 * Actualiza el valor de la barra de progreso
+	 * @param to actualizar a este valor
+	 */
+	public static void updateProgressBar (final int to)
+	{
+		_pbar.setValue(to);
+	}
+
+	/**
 	 * Constructor privado de la clase Canvas.
 	 * Inicializa el panel, la barra de progreso y los elementos graficos.
 	 * @param title titulo de la ventana
