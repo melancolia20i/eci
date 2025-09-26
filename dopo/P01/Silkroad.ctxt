@@ -7,4 +7,6 @@ comment2.params=days
 comment2.target=Silkroad(int[][])
 comment3.params=
 comment3.target=void\ changePage()
-numComments=4
+comment4.params=location\ tenges
+comment4.target=void\ placeStore(int,\ int)
+numComments=5

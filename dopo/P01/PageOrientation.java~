@@ -35,6 +35,15 @@ public enum PageOrientation
 		this.delta  = delta;
 	}
 
+	public int getModifiedIndexBasedOnInternalId (final int id)
+	{
+		if (this == EVEN)
+		{
+			return id;
+		}
+		return Road.MAXNOTERRAINLENGTH - id - 1;
+	}
+
 	public int getstarts () { return this.starts; }
 	public int getends   () { return this.ends;   }
 	public int getdelta  () { return this.delta;  }

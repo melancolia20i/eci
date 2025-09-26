@@ -14,19 +14,6 @@
  * simulation's backend
  */
 
-class Chunk
-{
-	private Store [] stores;
-	private Robot [] robots;
-
-	private int id;
-
-	public Chunk (final int id)
-	{
-		this.id = id;
-	}
-}
-
 public class Road
 {
 	/**
@@ -107,9 +94,24 @@ public class Road
 		_terrain  = new Rectangle[MAXNOTERRAINLENGTH];
 		_fullroad = new Chunk[Silkroad.LENGTH];
 
-		for (int i = 0; i < Silkroad.LENGTH; i++)
+		final PageOrientation orientations[] =
 		{
-			_fullroad[i] = new Chunk(i);
+			PageOrientation.EVEN,
+			PageOrientation.ODD
+		};
+
+		for (int i = 0, j = 0; i < Silkroad.LENGTH; i++)
+		{
+			if (((i % MAXNOTERRAINLENGTH) == 0) && (i != 0))
+			{
+				j = 1 - j;
+			}
+
+			/**
+			 * al inicio todo lo que sea menor de MAXNOTERRAINLENGTH pertenece
+			 * a la primera pagina, por ende estos chunks deberan ser visibles
+			 */
+			_fullroad[i] = new Chunk(orientations[j], i, (i < MAXNOTERRAINLENGTH));
 		}
 
 		final int minwinterrgen = Math.min(MAXNOTERRAINLENGTH, Silkroad.LENGTH);
@@ -130,16 +132,33 @@ public class Road
 		if (pageno == CURPAGE)
 		{
 			return;
-		}
+		}	
+
+		/**
+		 * telling all the chunks from the current page (no updated page) not
+		 * to render its stuff since they're not longer gonna be visible
+		 */
+		for (int i = _chunk0i; i != _chunkNi; i++) { _fullroad[i].changevisibility(false); }
 
 		_chunk0i = pageno * MAXNOTERRAINLENGTH;
 		_chunkNi = pageno * MAXNOTERRAINLENGTH;
 		CURPAGE  = pageno;
 		
 		_chunkNi += Math.min(MAXNOTERRAINLENGTH, Silkroad.LENGTH - _chunkNi);
-		System.out.printf("new page range: [%d %d)", _chunk0i, _chunkNi);
 
 		displayTerrainBasedOnThisPage();
+		for (int i = _chunk0i; i != _chunkNi; i++) { _fullroad[i].changevisibility(true); }
+	}
+
+	public static boolean placeStore (final int location, final int tenges)
+	{
+		if (_fullroad[location].getStore() != null)
+		{
+			return false;
+		}
+
+		_fullroad[location].inaugurateStore(tenges);
+		return true;
 	}
 
 	private static void displayTerrainBasedOnThisPage ()

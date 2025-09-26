@@ -22,6 +22,12 @@ public class Silkroad
 	 */
 	public static int LENGTH;
 
+	/**
+	 * indicates if the last operation made was successfully
+	 * completed
+	 */
+	private boolean ok;
+
 	public Silkroad (final int length)
 	{
 		Silkroad.LENGTH = length;
@@ -41,5 +47,21 @@ public class Silkroad
 			return;
 		}
 		Road.changePageVisual(pageno);
+	}
+
+	public void placeStore (final int location, final int tenges)
+	{
+		if (location < 0 || location >= LENGTH)
+		{
+			Misc.invalidLocationGivenViaBlueJDialogs(location);
+			return;
+		}
+
+		this.ok = Road.placeStore(location, tenges);
+		if (!this.ok)
+		{
+			Misc.invalidLocationToPlaceAStoreAt(location);
+			return;
+		}
 	}
 }

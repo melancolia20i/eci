@@ -34,7 +34,27 @@ public class Misc
 		JOptionPane.showMessageDialog(
 			null,
 			String.format("invalid page number (%d)", given),
-			String.format("%s: can u even read?", T0, Road.CURPAGE),
+			T0,
+			JOptionPane.ERROR_MESSAGE
+		);
+	}
+
+	public static void invalidLocationGivenViaBlueJDialogs (final int location)
+	{
+		JOptionPane.showMessageDialog(
+			null,
+			String.format("invalid location provided (%d is not between [0, %d])", location, Silkroad.LENGTH - 1),
+			T0,
+			JOptionPane.ERROR_MESSAGE
+		);
+	}
+
+	public static void invalidLocationToPlaceAStoreAt (final int location)
+	{
+		JOptionPane.showMessageDialog(
+			null,
+			String.format("cannot place a store there! there's already one at %d location", location),
+			T0,
 			JOptionPane.ERROR_MESSAGE
 		);
 	}

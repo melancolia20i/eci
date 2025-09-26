@@ -4,4 +4,6 @@ comment1.params=
 comment1.target=int\ changePageDialog()
 comment2.params=given
 comment2.target=void\ invalidPageNumberDialog(int)
-numComments=3
+comment3.params=location
+comment3.target=void\ invalidLocationGivenViaBlueJDialogs(int)
+numComments=4
