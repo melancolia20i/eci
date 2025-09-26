@@ -146,7 +146,17 @@ public class Misc
 	{
 		JOptionPane.showMessageDialog(
 			null,
-			String.format("profit del dia %d es %d TENGES", Road.DAYNO, Road.PROFIT),
+			String.format("profit of the %dth day is %d TENGES", Road.DAYNO, Road.PROFIT),
+			T0,
+			JOptionPane.INFORMATION_MESSAGE
+		);
+	}
+
+	public static void okDialog (final boolean status)
+	{
+		JOptionPane.showMessageDialog(
+			null,
+			String.format("ok? %s", state ? "yes" : "no"),
 			T0,
 			JOptionPane.INFORMATION_MESSAGE
 		);

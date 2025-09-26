@@ -210,5 +210,16 @@ public class Silkroad
 		return robots;
 	}
 
+	/**
+	 * Muestra una ventana la cual indica si la ultima operacion tuvo exito
+	 * o no
+	 */
+	public void ok ()
+	{
+		Misc.okDialog(this.ok);
+	}
+
+	public void makeVisible ()   { /* TODO */ }
+	public void makeInvisible () { /* TODO */ }
 }
 
