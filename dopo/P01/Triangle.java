@@ -4,22 +4,30 @@
  * |__ --||  |  |    <|   _|  _  |  _  |  _  |
  * |_____||__|__|__|__|__| |_____|___._|_____|
  *
- * @author	hever barrera batero ; juan diego patino munoz
- * @version	1
+ * @author  hever barrera batero ; juan diego patino munoz
+ * @version 1
  *
- * Provides a class which draws and handles a triangle which is used to
- * represent a store's roof (pretty much useless)
+ * Clase que dibuja y maneja un triangulo usado para representar
+ * el techo de una tienda dentro de la simulacion.
  */
 
 public class Triangle
 {
-	private final int    pxrow;
-	private final int    pxcol;
-	private final int    width;
-	private final int    height;
+	private final int pxrow;
+	private final int pxcol;
+	private final int width;
+	private final int height;
 	private final SColor color;
-	private boolean      visible;
+	private boolean visible;
 
+	/**
+	 * Constructor del triangulo.
+	 * @param pxrow fila inicial en pixeles
+	 * @param pxcol columna inicial en pixeles
+	 * @param height altura del triangulo
+	 * @param width ancho del triangulo
+	 * @param color color del triangulo
+	 */
 	public Triangle (final int pxrow, final int pxcol, final int height, final int width, final SColor color)
 	{
 		this.pxrow   = pxrow;
@@ -30,9 +38,13 @@ public class Triangle
 		this.visible = false;
 	}
 
+	/**
+	 * Cambia la visibilidad del triangulo.
+	 * Si se activa, se dibuja; si se desactiva, se borra.
+	 * @param state true para mostrar, false para ocultar
+	 */
 	public void changevisibility (final boolean state)
 	{
-
 		if (state == this.visible)
 		{
 			return;
@@ -47,6 +59,9 @@ public class Triangle
 		this.visible = false;
 	}
 
+	/**
+	 * Dibuja el triangulo en el canvas si es visible.
+	 */
 	private void draw ()
 	{
 		if (!this.visible) { return; }
@@ -59,6 +74,9 @@ public class Triangle
 		canvas.pause(Misc.RENDERMS);
 	}
 
+	/**
+	 * Borra el triangulo del canvas si estaba visible.
+	 */
 	private void erase ()
 	{
 		if (!this.visible) { return; }
@@ -66,3 +84,4 @@ public class Triangle
 		canvas.erase(this);
 	}
 }
+

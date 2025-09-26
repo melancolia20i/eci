@@ -4,21 +4,22 @@
  * |__ --||  |  |    <|   _|  _  |  _  |  _  |
  * |_____||__|__|__|__|__| |_____|___._|_____|
  *
- * @author	hever barrera batero ; juan diego patino munoz
- * @version	1
+ * @author  hever barrera batero ; juan diego patino munoz
+ * @version 1
  *
- * this class implements the concept of a store plus its representation
- * in the simulation
+ * Esta clase implementa el concepto de una tienda (store) junto con su
+ * representacion visual dentro de la simulacion.
  */
 
 public class Store
 {
 	/**
-	 * this array contains all the coordinates where a store should
-	 * be placed at within the road given its index of the page where
-	 * the store belongs to.
+	 * Arreglo que contiene todas las coordenadas en las que debe ser
+	 * colocada una tienda dentro del camino, dependiendo del indice
+	 * de la pagina donde pertenece.
 	 *
-	 * {facade_row, facade_col, roof_row, roof_col}
+	 * Cada fila contiene:
+	 * {fila_facade, columna_facade, fila_roof, columna_roof}
 	 */
 	private static int [][] _locs =
 	{
@@ -41,6 +42,11 @@ public class Store
 		{250, 200, 225, 212},
 	};
 
+	/**
+	 * Colores usados para cada tienda. 
+	 * Cada entrada contiene dos colores: 
+	 * [0] para la fachada, [1] para el techo.
+	 */
 	private static final SColor[][] _colors =
 	{
 		{SColor.c1f,  SColor.c1r },
@@ -62,14 +68,42 @@ public class Store
 		{SColor.c17f, SColor.c17r},
 	};
 
+	/**
+	 * Tamano en pixeles del cuadrado base de la tienda.
+	 */
 	private static final int _sz = 25;
 
+	/**
+	 * Rectangulo que representa la fachada de la tienda.
+	 */
 	private Rectangle facade;
-	private Triangle  roof;
-	private boolean   available;
-	private boolean   shown;
-	private int       tenges;
 
+	/**
+	 * Triangulo que representa el techo de la tienda.
+	 */
+	private Triangle  roof;
+
+	/**
+	 * Indica si la tienda esta disponible.
+	 */
+	private boolean available;
+
+	/**
+	 * Indica si la tienda esta siendo mostrada actualmente.
+	 */
+	private boolean shown;
+
+	/**
+	 * Dinero de la tienda.
+	 */
+	private int tenges;
+
+	/**
+	 * Constructor de la tienda.
+	 * @param tenges dinero de la tienda
+	 * @param nth indice que determina las coordenadas y colores
+	 * @param displaynow indica si debe mostrarse al crearse
+	 */
 	public Store (final int tenges, final int nth, final boolean displaynow)
 	{
 		this.facade    = new Rectangle(_locs[nth][0], _locs[nth][1], _sz, _sz, _colors[nth][0]);
@@ -81,9 +115,14 @@ public class Store
 		this.changevisibility(displaynow);
 	}
 
+	/**
+	 * Cambia la visibilidad de la tienda (fachada y techo).
+	 * @param to true para mostrar, false para ocultar
+	 */
 	public void changevisibility (final boolean to)
 	{
 		this.facade.changevisibility(to);
 		this.roof.changevisibility(to);
 	}
 }
+

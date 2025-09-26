@@ -2,14 +2,15 @@
  *         __ __ __                        __ 
  * .-----.|__|  |  |--.----.-----.---.-.--|  |
  * |__ --||  |  |    <|   _|  _  |  _  |  _  |
- * |_____||__|__|__|__|__| |_____|___._|_____|
+ * |_____||__|__|__|__|__| |_____|___._|_____| 
  *
- * @author	hever barrera batero ; juan diego patino munoz
- * @version	1
+ * @author  hever barrera batero ; juan diego patino munoz
+ * @version 1
  *
- * Provides the class which implements the window and handles everything
- * related to the graphics (this code was modifed by us and refined by
- * ChatGPT in order to make it faster)
+ * Clase que implementa una ventana grafica y maneja la logica
+ * relacionada con el dibujo y actualizacion de figuras.
+ * (este codigo fue modificado por nosotros y refinado por ChatGPT
+ * para hacerlo mas rapido)
  */
 
 import javax.swing.JFrame;
@@ -44,6 +45,11 @@ public class Canvas extends JFrame
 	private Graphics2D                   graphic;
 	private Image                        img;
 
+	/**
+	 * Obtiene la instancia unica de la clase Canvas.
+	 * Si no existe, crea una nueva ventana con configuracion por defecto.
+	 * @return instancia unica de Canvas
+	 */
 	public static Canvas getcanvas ()
 	{
 		if (_host == null)
@@ -55,6 +61,14 @@ public class Canvas extends JFrame
 		return _host;
 	}
 
+	/**
+	 * Constructor privado de la clase Canvas.
+	 * Inicializa el panel, la barra de progreso y los elementos graficos.
+	 * @param title titulo de la ventana
+	 * @param width ancho de la ventana
+	 * @param height alto de la ventana
+	 * @param bg color de fondo de la ventana
+	 */
 	private Canvas (final String title, final int width, final int height, final Color bg)
 	{
 		super(title);
@@ -69,13 +83,18 @@ public class Canvas extends JFrame
 		root.add(this.canvas, BorderLayout.CENTER);
 		_pbar.setValue(0);
 		_pbar.setStringPainted(true);
-		
+
 		root.add(_pbar, BorderLayout.SOUTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setContentPane(root);
 		pack();
 	}
 
+	/**
+	 * Sobrescribe el metodo setVisible para inicializar el buffer
+	 * grafico la primera vez que se muestra la ventana.
+	 * @param state indica si la ventana debe mostrarse o no
+	 */
 	@Override
 	public void setVisible (final boolean state)
 	{
@@ -92,6 +111,13 @@ public class Canvas extends JFrame
 		super.setVisible(state);
 	}
 
+	/**
+	 * Dibuja una figura asociada a un objeto en el canvas.
+	 * Si ya existia, se reemplaza.
+	 * @param ref referencia al objeto
+	 * @param color color de la figura
+	 * @param shape figura geometrica a dibujar
+	 */
 	public void draw (final Object ref, final SColor color, final Shape shape)
 	{
 		this.objs.remove(ref);
@@ -100,6 +126,10 @@ public class Canvas extends JFrame
 		this.redraw();
 	}
 
+	/**
+	 * Borra una figura asociada a un objeto en el canvas.
+	 * @param ref referencia al objeto que se desea eliminar
+	 */
 	public void erase (final Object ref)
 	{
 		this.objs.remove(ref);
@@ -107,11 +137,19 @@ public class Canvas extends JFrame
 		this.redraw();
 	}
 
+	/**
+	 * Cambia el color de fondo actual del canvas.
+	 * @param color color nuevo de fondo
+	 */
 	public void setbackgroundcolor (final SColor color)
 	{
 		this.graphic.setColor(color.getcolor());
 	}
 
+	/**
+	 * Pausa la ejecucion durante un tiempo dado en milisegundos.
+	 * @param ms tiempo de espera en milisegundos
+	 */
 	public void pause (final int ms)
 	{
 		try
@@ -123,6 +161,10 @@ public class Canvas extends JFrame
 		}
 	}
 
+	/**
+	 * Redibuja todos los elementos en el canvas.
+	 * Limpia el fondo y vuelve a pintar las figuras almacenadas.
+	 */
 	private void redraw ()
 	{
 		this.clscanvas();
@@ -133,6 +175,9 @@ public class Canvas extends JFrame
 		this.canvas.repaint();
 	}
 
+	/**
+	 * Limpia el canvas con el color de fondo actual.
+	 */
 	private void clscanvas ()
 	{
 		final Color c0 = this.graphic.getColor();
@@ -144,6 +189,10 @@ public class Canvas extends JFrame
 		this.graphic.setColor(c0);
 	}
 
+	/**
+	 * Clase interna que representa el panel principal donde se dibuja.
+	 * Se encarga de mostrar el buffer de imagen en pantalla.
+	 */
 	private class CanvasPane extends JPanel
 	{
 		@Override
@@ -157,17 +206,30 @@ public class Canvas extends JFrame
 		}
 	}
 
+	/**
+	 * Clase interna que almacena la informacion de una figura y su color.
+	 * Permite dibujarla en el contexto grafico.
+	 */
 	private class ShapeDesc
 	{
 		private final Shape  shape;
 		private final SColor color;
 
+		/**
+		 * Constructor que inicializa una figura con su color.
+		 * @param shape figura geometrica
+		 * @param color color de la figura
+		 */
 		public ShapeDesc (final Shape shape, final SColor color)
 		{
 			this.shape = shape;
 			this.color = color;
 		}
 
+		/**
+		 * Dibuja la figura en el contexto grafico recibido.
+		 * @param g contexto grafico donde se dibuja
+		 */
 		private void draw (final Graphics2D g)
 		{
 			g.setColor(color.getcolor());
@@ -176,3 +238,4 @@ public class Canvas extends JFrame
 		}
 	}
 }
+

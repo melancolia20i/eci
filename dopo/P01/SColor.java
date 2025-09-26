@@ -4,11 +4,11 @@
  * |__ --||  |  |    <|   _|  _  |  _  |  _  |
  * |_____||__|__|__|__|__| |_____|___._|_____|
  *
- * @author	hever barrera batero ; juan diego patino munoz
- * @version	1
+ * @author  hever barrera batero ; juan diego patino munoz
+ * @version 1
  *
- * Provides different colors by using the java.awt.Color class in order
- * to make the simulator more colorful and no that boring
+ * Esta clase provee diferentes colores usando la clase java.awt.Color,
+ * con el proposito de hacer el simulador mas vistoso y menos aburrido.
  */
 
 import java.awt.Color;
