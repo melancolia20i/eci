@@ -112,6 +112,16 @@ public class Robot
 	public void move (final boolean show, final int to)
 	{
 		this.body.changeposition(show, _locs[to][0], _locs[to][1]);
+		this.changevisibility(show);
+	}
+
+	/**
+	 * Incrementa el dinero de un robot
+	 * @param by cantidad de dinero a incrementar
+	 */
+	public void increaseProfit (final int by)
+	{
+		this.tenges += by;
 	}
 
 	/**
@@ -126,7 +136,21 @@ public class Robot
 	 */
 	public int getPositionInQueue () { return this.positionInQueue; }
 
+	/**
+	 * Establece un nuevo valor para el chunk en el que el robot esta
+	 * @param no indice global del chunk
+	 */
 	public void setGlobalChunkNo (final int no) { this.currentlyInChunkNo = no; }
 
+	/**
+	 * Establece la posicion en la que llego el robot al nuevo chunk
+	 * @param pos posicion
+	 */
 	public void setPositionInQueue (final int pos) { this.positionInQueue = pos; }
+
+	/**
+	 * Retorna el numero de tenges que el robot tiene actualemente
+	 * @return dinero
+	 */
+	public int getProfit () { return this.tenges; }
 }

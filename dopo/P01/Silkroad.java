@@ -151,5 +151,14 @@ public class Silkroad
 			Misc.cannotMoveRobotAtThatLocation(location);
 		}
 	}
+
+	/**
+	 * Simula el paso de un dia, hace que todos los robots vuelvan
+	 * a sus posiciones iniciales y las tiendas se reestablezcan
+	 */
+	public void makeANewDay ()
+	{
+		this.ok = Road.newDay();
+	}
 }
 

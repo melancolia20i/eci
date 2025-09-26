@@ -68,35 +68,13 @@ public class Store
 		{SColor.c17f, SColor.c17r},
 	};
 
-	/**
-	 * Tamano en pixeles del cuadrado base de la tienda.
-	 */
 	private static final int _sz = 25;
 
-	/**
-	 * Rectangulo que representa la fachada de la tienda.
-	 */
 	private Rectangle facade;
-
-	/**
-	 * Triangulo que representa el techo de la tienda.
-	 */
 	private Triangle  roof;
-
-	/**
-	 * Indica si la tienda esta disponible.
-	 */
-	private boolean available;
-
-	/**
-	 * Indica si la tienda esta siendo mostrada actualmente.
-	 */
-	private boolean shown;
-
-	/**
-	 * Dinero de la tienda.
-	 */
-	private int tenges;
+	private boolean   available;
+	private boolean   shown;
+	private int       tenges;
 
 	/**
 	 * Constructor de la tienda.
@@ -124,5 +102,23 @@ public class Store
 		this.facade.changevisibility(to);
 		this.roof.changevisibility(to);
 	}
+
+	/**
+	 * Retorna cuantos tenges almacena esta tienda
+	 * @return valor de tenges
+	 */
+	public int getTengesAmount () { return this.tenges; }
+
+	/**
+	 * Retorna si una tienda esta disponible o no
+	 * @return disponibilidad
+	 */
+	public boolean getAvailableness () { return this.available; }
+
+	/**
+	 * Establece si una tienda esta disponible o no
+	 * @param to true si si, false si no
+	 */
+	public void setAvailableness (final boolean to) { this.available = to; }
 }
 

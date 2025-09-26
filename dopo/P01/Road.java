@@ -247,6 +247,27 @@ public class Road
 
 		robot.setGlobalChunkNo(desination);
 		robot.setPositionInQueue(posdat);
+
+		final Store storeathatpos = _fullroad[desination].getStore();
+		if (storeathatpos != null && storeathatpos.getAvailableness())
+		{
+			robot.increaseProfit(storeathatpos.getTengesAmount());
+			storeathatpos.setAvailableness(false);
+		}
+		return true;
+	}
+
+	/**
+	 * Simula el paso de un dia, hace que todos los robots vuelvan
+	 * a sus posiciones iniciales y las tiendas se reestablezcan
+	 * @return true siempre
+	 */
+	public static boolean newDay ()
+	{
+		for (int i = 0; i < Silkroad.LENGTH; i++)
+		{
+			_fullroad[i].newDayBaby();
+		}
 		return true;
 	}
 
