@@ -161,6 +161,16 @@ public class Road
 		return true;
 	}
 
+	public static boolean removeStore (final int location)
+	{
+		if (_fullroad[location].getStore() == null)
+		{
+			return false;
+		}
+		_fullroad[location].closeStore();
+		return true;
+	}
+
 	private static void displayTerrainBasedOnThisPage ()
 	{
 		final PageOrientation or = PageOrientation.orientationOf(CURPAGE);

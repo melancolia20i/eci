@@ -64,4 +64,21 @@ public class Silkroad
 			return;
 		}
 	}
+
+	public void removeStore (final int location)
+	{
+		if (location < 0 || location >= LENGTH)
+		{
+			Misc.invalidLocationGivenViaBlueJDialogs(location);
+			return;
+		}
+
+		this.ok = Road.removeStore(location);
+		if (!this.ok)
+		{
+			Misc.invalidLocationToRemoveAStoreAt(location);
+			return;
+		}
+	}
+
 }

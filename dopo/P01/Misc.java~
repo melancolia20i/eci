@@ -53,7 +53,17 @@ public class Misc
 	{
 		JOptionPane.showMessageDialog(
 			null,
-			String.format("cannot place a store there! there's already one at %d location", location),
+			String.format("cannot place a store there! there's already one store at location %d", location),
+			T0,
+			JOptionPane.ERROR_MESSAGE
+		);
+	}
+
+	public static void invalidLocationToRemoveAStoreAt (final int location)
+	{
+		JOptionPane.showMessageDialog(
+			null,
+			String.format("cannot remove a store there! there's no store at location %d", location),
 			T0,
 			JOptionPane.ERROR_MESSAGE
 		);

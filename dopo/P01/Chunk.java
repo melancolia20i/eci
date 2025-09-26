@@ -28,7 +28,7 @@ public class Chunk
 		this.store      = null;
 		this.displayed  = show;
 	}
-
+	
 	public void inaugurateStore (final int tenges)
 	{
 		this.store = new Store(
@@ -37,8 +37,12 @@ public class Chunk
 			this.displayed
 		);
 	}
-
-	public Store getStore () { return this.store; }
+	
+	public void closeStore ()
+	{
+		this.store.changevisibility(false);
+		this.store = null;
+	}
 
 	public void changevisibility (final boolean to)
 	{
@@ -47,5 +51,10 @@ public class Chunk
 		{
 			this.store.changevisibility(to);
 		}
+
+		// TODO: implement dsame but with tobots
 	}
+
+
+	public Store getStore () { return this.store; }
 }
