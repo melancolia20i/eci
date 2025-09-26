@@ -131,6 +131,18 @@ public class Chunk
 	}
 
 	/**
+	 * Cuando un robot cambia su posicion esta funcion sera llamada
+	 * para poder almacenarlo en el chunk en el que estara
+	 * @param robot robot
+	 * @return cantidad de robots - 1
+	 */
+	public int newRobotGonnaBeHere (final Robot robot)
+	{
+		this.robots.add(robot);
+		return this.robots.size() - 1;
+	}
+
+	/**
 	 * Devuelve la tienda asociada al fragmento.
 	 * @return objeto Store o null si no hay tienda
 	 */
@@ -141,5 +153,29 @@ public class Chunk
 	 * @return objeto Robot o null si no hay robot
 	 */
 	public Robot getRobot () { return this.robot; }
+
+	/**
+	 * Devuelve el numero de robots que estan en esta posicion
+	 * @return numero de robots en este chunk
+	 */
+	public int getNoRobotsHere () { return this.robots.size(); }
+
+	/**
+	 * Devuelve el primer robot en llegar a este chunk
+	 * @return primer robot de la lista de robots
+	 */
+	public Robot getFirstRobotThatCameHere () { return this.robots.remove(0); }
+
+	/**
+	 * Devuelve la orientacion
+	 * @return orientacion
+	 */
+	public PageOrientation getOrientation () { return this.orientedby; }
+
+	/**
+	 * Devuelve si el chunk es visible o no
+	 * @return la visibilidad del chunk
+	 */
+	public boolean getDisplayed () { return this.displayed; }
 }
 

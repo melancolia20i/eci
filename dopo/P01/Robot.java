@@ -45,11 +45,11 @@ public class Robot
 	 */
 	private static final int [][] _locs =
 	{
-		{50, 50},
-		{150, 50},
-		{250, 50},
-		{350, 50},
-		{450, 50},
+		{50,  50 },
+		{150, 50 },
+		{250, 50 },
+		{350, 50 },
+		{450, 50 },
 		{450, 150},
 		{450, 250},
 		{450, 350},
@@ -57,9 +57,9 @@ public class Robot
 		{350, 450},
 		{250, 450},
 		{150, 450},
-		{50, 450},
-		{50, 350},
-		{50, 250},
+		{50,  450},
+		{50,  350},
+		{50,  250},
 		{150, 250},
 		{250, 250}
 	};
@@ -109,21 +109,24 @@ public class Robot
 		this.body.changevisibility(to);
 	}
 
+	public void move (final boolean show, final int to)
+	{
+		this.body.changeposition(show, _locs[to][0], _locs[to][1]);
+	}
+
 	/**
 	 * Retorna el indece global del chunk en el que esta actualemente
 	 * @return indice del chunk en que se encuentra el robot
 	 */
-	public int getGlobalChunkNo ()
-	{
-		return this.currentlyInChunkNo;
-	}
+	public int getGlobalChunkNo () { return this.currentlyInChunkNo; }
 
 	/**
 	 * Retorna el indece en el que se encuentra el robot del chunk actual
 	 * @return posicion dentro del chunk
 	 */
-	public int getPositionInQueue ()
-	{
-		return this.positionInQueue;
-	}
+	public int getPositionInQueue () { return this.positionInQueue; }
+
+	public void setGlobalChunkNo (final int no) { this.currentlyInChunkNo = no; }
+
+	public void setPositionInQueue (final int pos) { this.positionInQueue = pos; }
 }

@@ -117,7 +117,7 @@ public class Silkroad
 
 	/**
 	 * intenta borrar un robot en la posicion especificada
-	 * @param location posicion del chunk
+	 * @param location posicion del chunk donde spawnea el robot
 	 */
 	public void removeRobot (final int location)
 	{
@@ -130,6 +130,25 @@ public class Silkroad
 		if (!this.ok)
 		{
 			Misc.invalidLocationToRemoveARobotAt(location);
+		}
+	}
+
+	/**
+	 * Intenta mover un robot en la posicion dada 'metros' chunks
+	 * @param location posicion en la que el robot esta
+	 * @param meters numero de chunks a mover
+	 */
+	public void moveRobot (final int location, final int meters)
+	{
+		if (location < 0 || location >= LENGTH)
+		{
+			Misc.invalidLocationGivenViaBlueJDialogs(location);
+			return;
+		}
+		this.ok = Road.moveRobot(location, meters);
+		if (!this.ok)
+		{
+			Misc.cannotMoveRobotAtThatLocation(location);
 		}
 	}
 }

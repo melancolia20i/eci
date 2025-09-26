@@ -127,16 +127,13 @@ public class Road
 			return;
 		}
 
-		// Ocultar los chunks de la pagina actual
 		for (int i = _chunk0i; i != _chunkNi; i++) { _fullroad[i].changevisibility(false); }
 
-		// Calcular rango de chunks de la nueva pagina
 		_chunk0i = pageno * MAXNOTERRAINLENGTH;
 		_chunkNi = pageno * MAXNOTERRAINLENGTH;
 		CURPAGE  = pageno;
 		_chunkNi += Math.min(MAXNOTERRAINLENGTH, Silkroad.LENGTH - _chunkNi);
 
-		// Dibujar terreno y chunks de la nueva pagina
 		displayTerrainBasedOnThisPage();
 		for (int i = _chunk0i; i != _chunkNi; i++) { _fullroad[i].changevisibility(true); }
 	}
@@ -197,6 +194,7 @@ public class Road
 	 * Intenta remover un robot en la posicion especificada plus
 	 * la referencia el robot donde sea que este
 	 * @param location posicion en la que spawnea el robot a eliminar
+	 * @return true si se elimino, false si no
 	 */
 	public static boolean removeRobot (final int location)
 	{	
@@ -216,7 +214,41 @@ public class Road
 		_fullroad[location].killRobot();
 		return true;
 	}
-	// TODO: TEST la eliminacion de robots cuando se puedan mover
+
+	/**
+	 * Intenta mover un robot en la posicion dada 'metros' chunks
+	 * @param location posicion en la que el robot esta
+	 * @param meters numero de chunks a mover
+	 * @return true si se logro mover el robot, false si no
+	 */
+	public static boolean moveRobot (final int location, final int meters)
+	{
+		if (_fullroad[location].getNoRobotsHere() == 0)
+		{
+			return false;
+		}
+		if (meters == 0)
+		{
+			return true;
+		}
+
+		final Robot robot    = _fullroad[location].getFirstRobotThatCameHere();
+		final int desination = robot.getGlobalChunkNo() + meters;
+
+		if ((desination < 0) || (desination >= Silkroad.LENGTH))
+		{
+			return false;
+		}
+
+		final PageOrientation or = _fullroad[desination].getOrientation();
+		robot.move(_fullroad[desination].getDisplayed(), or.getModifiedIndexBasedOnInternalId(desination % MAXNOTERRAINLENGTH));
+
+		final int posdat = _fullroad[desination].newRobotGonnaBeHere(robot);
+
+		robot.setGlobalChunkNo(desination);
+		robot.setPositionInQueue(posdat);
+		return true;
+	}
 
 	/**
 	 * Muestra el terreno dependiendo de la pagina actual

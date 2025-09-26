@@ -3,11 +3,12 @@ import java.util.ArrayList;
 
 class A
 {
-	private int a;
+	public int a;
 	public A (int a)
 	{
 		this.a = a;
 	}
+
 }
 
 public class Tests
@@ -18,8 +19,10 @@ public class Tests
 		A abc = new A(4);
 
 		lista.add(abc);
-		abc = null;
 
-		System.out.println(lista.size());
+		A x = lista.remove(0);
+		x.a = 1;
+
+		System.out.println(abc.a);
 	}
 }

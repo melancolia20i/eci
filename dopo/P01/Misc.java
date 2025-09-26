@@ -123,5 +123,16 @@ public class Misc
 			JOptionPane.ERROR_MESSAGE
 		);
 	}
+
+	public static void cannotMoveRobotAtThatLocation (final int location)
+	{
+		JOptionPane.showMessageDialog(
+			null,
+			String.format("cannot move robot at location %d, make sure all is ok", location),
+			T0,
+			JOptionPane.ERROR_MESSAGE
+		);
+	}
+
 }
 
