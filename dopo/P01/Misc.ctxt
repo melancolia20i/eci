@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Misc
+comment1.params=
+comment1.target=int\ changePageDialog()
+comment2.params=given
+comment2.target=void\ invalidPageNumberDialog(int)
+numComments=3
