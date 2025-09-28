@@ -28,11 +28,11 @@ public class Misc
 	public static int changePageDialog ()
 	{   
 		return Integer.parseInt(JOptionPane.showInputDialog(
-			null,
-			String.format("page [0 - %d): ", Road.NOPAGES),
-			String.format("%s: changing page (current: %d)", T0, Road.CURPAGE),
-			JOptionPane.INFORMATION_MESSAGE
-		));
+					null,
+					String.format("page [0 - %d): ", Road.NOPAGES),
+					String.format("%s: changing page (current: %d)", T0, Road.CURPAGE),
+					JOptionPane.INFORMATION_MESSAGE
+					));
 	}
 
 	/**
@@ -42,11 +42,11 @@ public class Misc
 	public static void invalidPageNumberDialog (final int given)
 	{
 		JOptionPane.showMessageDialog(
-			null,
-			String.format("invalid page number (%d)", given),
-			T0,
-			JOptionPane.ERROR_MESSAGE
-		);
+				null,
+				String.format("invalid page number (%d)", given),
+				T0,
+				JOptionPane.ERROR_MESSAGE
+				);
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class Misc
 	public static void invalidLocationGivenViaBlueJDialogs (final int location)
 	{
 		JOptionPane.showMessageDialog(
-			null,
-			String.format("invalid location provided (%d is not between [0, %d])", location, Silkroad.LENGTH - 1),
-			T0,
-			JOptionPane.ERROR_MESSAGE
-		);
+				null,
+				String.format("invalid location provided (%d is not between [0, %d])", location, Silkroad.LENGTH - 1),
+				T0,
+				JOptionPane.ERROR_MESSAGE
+				);
 	}
 
 	/**
@@ -72,11 +72,11 @@ public class Misc
 	public static void invalidLocationToPlaceAStoreAt (final int location)
 	{
 		JOptionPane.showMessageDialog(
-			null,
-			String.format("cannot place a store there! there's already one store at location %d", location),
-			T0,
-			JOptionPane.ERROR_MESSAGE
-		);
+				null,
+				String.format("cannot place a store there! there's already one store at location %d", location),
+				T0,
+				JOptionPane.ERROR_MESSAGE
+				);
 	}
 
 	/**
@@ -87,11 +87,11 @@ public class Misc
 	public static void invalidLocationToRemoveAStoreAt (final int location)
 	{
 		JOptionPane.showMessageDialog(
-			null,
-			String.format("cannot remove a store there! there's no store at location %d", location),
-			T0,
-			JOptionPane.ERROR_MESSAGE
-		);
+				null,
+				String.format("cannot remove a store there! there's no store at location %d", location),
+				T0,
+				JOptionPane.ERROR_MESSAGE
+				);
 	}
 
 	/**
@@ -102,11 +102,11 @@ public class Misc
 	public static void invalidLocationToPlaceARobotAt (final int location)
 	{
 		JOptionPane.showMessageDialog(
-			null,
-			String.format("cannot place a robot at location %d: make sure ain't a store nor robot there", location),
-			T0,
-			JOptionPane.ERROR_MESSAGE
-		);
+				null,
+				String.format("cannot place a robot at location %d: make sure ain't a store nor robot there", location),
+				T0,
+				JOptionPane.ERROR_MESSAGE
+				);
 	}
 
 	/**
@@ -117,11 +117,11 @@ public class Misc
 	public static void invalidLocationToRemoveARobotAt (final int location)
 	{
 		JOptionPane.showMessageDialog(
-			null,
-			String.format("cannot remove a robot at location %d: no robot spawns there", location),
-			T0,
-			JOptionPane.ERROR_MESSAGE
-		);
+				null,
+				String.format("cannot remove a robot at location %d: no robot spawns there", location),
+				T0,
+				JOptionPane.ERROR_MESSAGE
+				);
 	}
 
 	/**
@@ -131,11 +131,11 @@ public class Misc
 	public static void cannotMoveRobotAtThatLocation (final int location)
 	{
 		JOptionPane.showMessageDialog(
-			null,
-			String.format("cannot move robot at location %d, make sure all is ok", location),
-			T0,
-			JOptionPane.ERROR_MESSAGE
-		);
+				null,
+				String.format("cannot move robot at location %d, make sure all is ok", location),
+				T0,
+				JOptionPane.ERROR_MESSAGE
+				);
 	}
 
 	/**
@@ -145,21 +145,21 @@ public class Misc
 	public static void consultProfitDialog ()
 	{
 		JOptionPane.showMessageDialog(
-			null,
-			String.format("profit of the %dth day is %d TENGES", Road.DAYNO, Road.PROFIT),
-			T0,
-			JOptionPane.INFORMATION_MESSAGE
-		);
+				null,
+				String.format("profit of the %dth day is %d TENGES", Road.DAYNO, Road.PROFIT),
+				T0,
+				JOptionPane.INFORMATION_MESSAGE
+				);
 	}
 
 	public static void okDialog (final boolean status)
 	{
 		JOptionPane.showMessageDialog(
-			null,
-			String.format("ok? %s", state ? "yes" : "no"),
-			T0,
-			JOptionPane.INFORMATION_MESSAGE
-		);
+				null,
+				String.format("ok? %s", status ? "yes" : "no"),
+				T0,
+				JOptionPane.INFORMATION_MESSAGE
+				);
 	}
 
 }

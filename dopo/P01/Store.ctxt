@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Store
+comment0.text=\r\n\ \ \ \ \ \ \ \ \ __\ __\ __\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ __\ \r\n\ .-----.|__|\ \ |\ \ |--.----.-----.---.-.--|\ \ |\r\n\ |__\ --||\ \ |\ \ |\ \ \ \ <|\ \ \ _|\ \ _\ \ |\ \ _\ \ |\ \ _\ \ |\r\n\ |_____||__|__|__|__|__|\ |_____|___._|_____|\r\n\r\n\ @author\ \ hever\ barrera\ batero\ ;\ juan\ diego\ patino\ munoz\r\n\ @version\ 1\r\n\r\n\ Esta\ clase\ implementa\ el\ concepto\ de\ una\ tienda\ (store)\ junto\ con\ su\r\n\ representacion\ visual\ dentro\ de\ la\ simulacion.\r\n
+comment1.params=tenges\ nth\ displaynow
+comment1.target=Store(int,\ int,\ boolean)
+comment1.text=\r\n\ Constructor\ de\ la\ tienda.\r\n\ @param\ tenges\ dinero\ de\ la\ tienda\r\n\ @param\ nth\ indice\ que\ determina\ las\ coordenadas\ y\ colores\r\n\ @param\ displaynow\ indica\ si\ debe\ mostrarse\ al\ crearse\r\n
+comment2.params=to
+comment2.target=void\ changevisibility(boolean)
+comment2.text=\r\n\ Cambia\ la\ visibilidad\ de\ la\ tienda\ (fachada\ y\ techo).\r\n\ @param\ to\ true\ para\ mostrar,\ false\ para\ ocultar\r\n
+comment3.params=
+comment3.target=int\ getTengesAmount()
+comment3.text=\r\n\ Retorna\ cuantos\ tenges\ almacena\ esta\ tienda\r\n\ @return\ valor\ de\ tenges\r\n
+comment4.params=
+comment4.target=boolean\ getAvailableness()
+comment4.text=\r\n\ Retorna\ si\ una\ tienda\ esta\ disponible\ o\ no\r\n\ @return\ disponibilidad\r\n
+comment5.params=to
+comment5.target=void\ setAvailableness(boolean)
+comment5.text=\r\n\ Establece\ si\ una\ tienda\ esta\ disponible\ o\ no\r\n\ @param\ to\ true\ si\ si,\ false\ si\ no\r\n
+numComments=6

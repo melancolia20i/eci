@@ -7,4 +7,4 @@
 # removes all the bs from the project...
 #
 
-rm	-rf *.class *.ctxt *~ .*~
+rm	-rf *.class *.ctxt *~ .*~ .*.swp
