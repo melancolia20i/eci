@@ -1,0 +1,46 @@
+	ORG 100
+	INPUT
+	STORE N
+
+LOOP, LOAD I
+	SUBT N
+	SKIPCOND 000
+	JUMP FINI
+	LOAD I
+	ADD ONE
+	STORE I
+	/ ----------------------------------
+	INPUT
+	STORE A
+	INPUT
+	STORE B
+	LOAD A
+	STORE J
+	LOAD A
+	STORE S
+	/ -----------------------------------
+SUMATORIA, LOAD J
+	SUBT B
+	SKIPCOND 0C00
+	JUMP FINI2
+	/ ------------------------------------
+	LOAD J
+	ADD ONE
+	STORE J
+	LOAD S
+	ADD J
+	STORE S
+	/ ------------------------------------
+	JUMP SUMATORIA
+FINI2, LOAD S
+	OUTPUT
+	JUMP LOOP
+FINI, HALT
+
+ONE, DEC 1
+N, DEC 0
+I, DEC 0
+J, DEC 0
+A, DEC 0
+B, DEC 0
+S, DEC 0
