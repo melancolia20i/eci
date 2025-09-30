@@ -79,6 +79,18 @@ public class Road
 	public static int _maxprofit = 0;;
 
 	/**
+	 * Indica el numero de tiendas que no han sido eliminadas aun, es decir
+	 * si se crean tres y luego se elimina una, esta variable sera dos
+	 */
+	public static int _noStores = 0;
+
+	/**
+	 * Indica el numero de robots que no han sido eliminados aun, es decir
+	 * si se crean tres y luego se elimina uno, esta variable sera dos
+	 */
+	public static int _noRobots = 0;
+
+	/**
 	 * Numero total de paginas del mapa.
 	 */
 	public static int NOPAGES = 1;
@@ -169,6 +181,7 @@ public class Road
 			return false;
 		}
 
+		_noStores++;
 		_fullroad[location].inaugurateStore(tenges);
 		_maxprofit += tenges;
 		return true;
@@ -185,6 +198,8 @@ public class Road
 		{
 			return false;
 		}
+
+		_noStores--;
 		_fullroad[location].closeStore();
 		return true;
 	}
@@ -205,6 +220,7 @@ public class Road
 			return false;
 		}
 
+		_noRobots++;
 		_fullroad[location].placeRobot();
 		return true;
 	}
@@ -230,6 +246,7 @@ public class Road
 			_fullroad[robotIsAt].colateralKill(robot.getPositionInQueue());
 		}
 
+		_noRobots--;
 		_fullroad[location].killRobot();
 		return true;
 	}
@@ -308,20 +325,20 @@ public class Road
 	 */
 	public static int[][] consultStores ()
 	{
-		int [][] ans = new int[Silkroad.LENGTH][2];
+		int [][] ans = new int[_noStores][2];
 
-		for (int i = 0; i < Silkroad.LENGTH; i++)
+		for (int i = 0, j = 0; i < Silkroad.LENGTH; i++)
 		{
 			final Store store = _fullroad[i].getStore();
 			if (store == null)
 			{
-				ans[i] = null;
 				continue;
 			}
 
-			ans[i] = new int [2];
-			ans[i][0] = i;
-			ans[i][1] = store.getTengesAmount();
+			ans[j]      = new int [2];
+			ans[j][0]   = i;
+			ans[j++][1] = store.getTengesAmount();
+
 		}
 
 		return ans;
@@ -335,24 +352,24 @@ public class Road
 	 */
 	public static int[][] consultRobots ()
 	{
-		int [][] ans = new int[Silkroad.LENGTH][];
+		int [][] ans = new int[_noRobots][];
 
-		for (int i = 0; i < Silkroad.LENGTH; i++)
+		for (int i = 0, k = 0; i < Silkroad.LENGTH; i++)
 		{
 			final List<Robot> robs = _fullroad[i].getRobots();
 			final int nrbs = robs.size();
 
 			if (nrbs ==  0)
 			{
-				ans[i] = null;
 				continue;
 			}
 
-			ans[i] = new int [nrbs];
+			ans[k] = new int [nrbs];
 			for (int j = 0; j < nrbs; j++)
 			{
-				ans[i][j] = robs.get(j).getProfit();
+				ans[k][j] = robs.get(j).getProfit();
 			}
+			k++;
 		}
 		return ans;
 	}

@@ -168,6 +168,7 @@ public class Silkroad
 	public void consultProfit ()
 	{
 		Misc.consultProfitDialog();
+		this.ok = true;
 	}
 
 	/**
@@ -176,6 +177,7 @@ public class Silkroad
 	 */
 	public int [][] stores ()
 	{
+		this.ok = true;
 		return Road.consultStores();
 	}
 	
@@ -187,6 +189,7 @@ public class Silkroad
 	 */
 	public int[][] robots ()
 	{
+		this.ok = true;
 		return Road.consultRobots();
 	}
 
@@ -197,9 +200,27 @@ public class Silkroad
 	public void ok ()
 	{
 		Misc.okDialog(this.ok);
+		this.ok = true;
 	}
 
-	public void makeVisible ()   { /* TODO */ }
-	public void makeInvisible () { /* TODO */ }
+	/**
+	 * Establece la visibilidad del juego como verdadera, es el opuesto
+	 * del metodo 'makeInvisible'
+	 */
+	public void makeVisible ()
+	{
+		Canvas.getcanvas().setVisible(true);
+		this.ok = true;
+	}
+
+	/**
+	 * Establece la visibilidad del juego como false, es el opuesto
+	 * del metodo 'makeVisible'
+	 */
+	public void makeInvisible ()
+	{
+		Canvas.getcanvas().setVisible(false);
+		this.ok = true;
+	}
 }
 
