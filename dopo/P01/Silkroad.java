@@ -176,14 +176,7 @@ public class Silkroad
 	 */
 	public int [][] stores ()
 	{
-		int [][] stores = Road.consultStores();
-
-		for (int i = 0; i < Silkroad.LENGTH; i++)
-		{
-			if (stores[i] == null) continue;
-			System.out.printf("store at %d has %d tenges\n", stores[i][0], stores[i][1]);
-		}
-		return stores;
+		return Road.consultStores();
 	}
 	
 	/**
@@ -194,20 +187,7 @@ public class Silkroad
 	 */
 	public int[][] robots ()
 	{
-		int [][] robots = Road.consultRobots();
-
-		for (int i = 0; i < Silkroad.LENGTH; i++)
-		{
-			if (robots[i] == null) continue;
-
-			System.out.printf("Robot(s) at position: %d\n", i);
-
-			for (int j = 0; j < robots[i].length; j++)
-			{
-				System.out.printf("  %dth robot has %d tenges\n", j, robots[i][j]);
-			}
-		}
-		return robots;
+		return Road.consultRobots();
 	}
 
 	/**
